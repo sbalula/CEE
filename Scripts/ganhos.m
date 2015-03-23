@@ -3,21 +3,22 @@ function [K,L] = ganhos( C, vpp_C, O, vpp_O, A )
 %   Explicação
 vpp_A=eig(A);
 
-pol_A=(poly(vpp_A));
+pol_A=(poly(vpp_A))';
 pol_C=(poly(vpp_C));
 pol_O=(poly(vpp_O));
 
-pol_A=pol_A(2:end);
 pol_C=pol_C(2:end);
 pol_O=pol_O(2:end);
 
 M=zeros(length(vpp_A));
 
 for j=1:1:length(vpp_A)
-    for i=j+1:1:length(vpp_A)
-        M(i,j)=vpp_A(i-1);
+    for i=1:1:length(vpp_A)-j
+        M(i+j,j)=pol_A(i+1);
     end
 end
+pol_A=(pol_A(2:end))';
+
 M=M+eye(length(vpp_A));
 
 K=(pol_C-pol_A)*(inv(M))'*inv(C);
