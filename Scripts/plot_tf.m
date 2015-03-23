@@ -8,7 +8,6 @@ sys=tf(num,den);
 
 h=bodeplot(sys,{2*pi*fmin,2*pi*fmax});
 setoptions(h,'FreqUnits','Hz','grid','on');
-h
 
 end
 
