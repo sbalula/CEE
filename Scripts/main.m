@@ -9,6 +9,12 @@ vpp_O=[-50,-50,-30,-30];
 [C,cntr]=controlab(A,b);
 [O,obsr]=observab(A,c);
 
-plot_tf(A,b,c,0.1,100);
+%plot_tf(A,b,c,0.1,100);
 
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
+
+sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
+
+sys_tf=tf(sys_ss);
+
+bode(sys_ss);
