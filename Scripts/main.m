@@ -1,20 +1,73 @@
+%% Relatório preliminar do laboratório de CEE
+% Este trabalho foi realizado por:
+% 
+% * Alexandre Aparício Nº
+% * Pedro Ribeiro Nº
+% * Samuel Balula Nº
+%%
+% Começa-se por limpar todas as variáveis que possam estar definidas
+% antes de executar o código
 clear;
-
+%% Definição das matrizes do modelo de estado
+% Começa-se por se definir as matrizes que se definem o modelo de estado,
+% que são fornecidas no enunciado:
 A=[0,0,1,0;0,0,0,1;0,566,-37,0;0,-922,37,0];
 b=[0;0;65;-65];
 c=[1,1,0,0];
+%% Caracterização da controlabilidade e observabilidade do sistema
+% Antes de se calcular os vectores de ganho do controlador e do observador,
+% é necessário determinar se o sistema é ou não controlável e observável.
+% Criaram-se então duas macros:
+% 
+% * controlab: Recebe a matriz A e o vector b e retorna a respectiva matriz
+% de controlabilidade e uma variável que é igual a 1 se o sistema for
+% controlável e 0 se não for.
+% * observab: Recebe a matriz A e o vector c e retorna a respectiva matriz
+% de observabilidade e uma variável que é igual a 1 se o sistema for
+% observável e 0 se não for.
+% Verifica-se que este sistema é controlável e observável.
+[C,cntr]=controlab(A,b);
+C
+cntr
+[O,obsr]=observab(A,c);
+O
+obsr
+%% Diagrama de Bode do sistema 
+% Criou-se uma macro para realizar o diagrama de bode do sistema a partir
+% das sua matrizes A, b e c (e assumindo que d=0). Observa-se que o sistema
+% em malha aberta possui pelo um pólo na origem e os restantes 3 pólos
+% perto da frequência de 4Hz, visto que a magnitude decai a -20db por
+% década até essa frequência, passando a decair de seguida com -80db por
+% década.
+plot_tf(A,b,c,0.1,100);
+%% Manipulação de pólos do sistema por realimentação e estimação das variáveis de estado
+% Começa-se por se definir os valores próprios pretendidos para o
+% controlador (vpp_C) e para o erro do observador (vpp_O):
 vpp_C=[-70,-20,-10,-10];
 vpp_O=[-50,-50,-30,-30];
-
-[C,cntr]=controlab(A,b);
-[O,obsr]=observab(A,c);
-
-%plot_tf(A,b,c,0.1,100);
-
+%%
+% De seguida, executa-se a função ganhos, que recebe a matriz de
+% controlabilidade e observabilidade do sistema, juntamente com os valores
+% próprios pretendidos para o controlador e para os erros do observador e
+% que retorna os vectores de ganho do controlador (L) e do erro do
+% observador (K)
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
-
+K
+L
+%% Função de transferência em cadeia fechada
+% Por fim determinou-se o diagrama de Bode do sistema em cadeia fechada. A
+% união entre o modelo em cadeia aberta e o estimador que irão formar o
+% sistema em cadeia fechada é realizada pela função ligacao, que recebe
+% as matrizes do sistema em malha aberta e do estimador em malha aberta e
+% retorna uma variável em formato sys que descreve o sistema (representado
+% em espaço de de estados) como
+% representado no esquema de simulink.
 sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
-
-sys_tf=tf(sys_ss);
-
-bode(sys_ss);
+%% 
+% Assim é possível determinar a função de transferência através da função
+% tf:
+sys_tf=tf(sys_ss)
+%%
+% E obter o respectivo diagrama de bode
+h=bodeplot(sys_ss,{2*pi*0.1,2*pi*100});
+setoptions(h,'FreqUnits','Hz','grid','on');
