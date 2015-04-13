@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Relat&oacute;rio preliminar do laborat&oacute;rio de CEE</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-04-12"><meta name="DC.source" content="main.m"><style type="text/css">
+      --><title>Relat&oacute;rio preliminar do laborat&oacute;rio de CEE</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-04-13"><meta name="DC.source" content="main.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,11 +66,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Relat&oacute;rio preliminar do laborat&oacute;rio de CEE</h1><!--introduction--><p>Este trabalho foi realizado por:</p><div><ul><li>Alexandre Apar&iacute;cio</li><li>Pedro Ribeiro</li><li>Samuel Balula</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Defini&ccedil;&atilde;o das matrizes do modelo de estado</a></li><li><a href="#3">Caracteriza&ccedil;&atilde;o da controlabilidade e observabilidade do sistema</a></li><li><a href="#4">Diagrama de Bode do sistema</a></li><li><a href="#5">Manipula&ccedil;&atilde;o de p&oacute;los do sistema por realimenta&ccedil;&atilde;o e estima&ccedil;&atilde;o das vari&aacute;veis de estado</a></li><li><a href="#7">Fun&ccedil;&atilde;o de transfer&ecirc;ncia em cadeia fechada</a></li></ul></div><p>Come&ccedil;a-se por limpar todas as vari&aacute;veis que possam estar definidas antes de executar o c&oacute;digo</p><pre class="codeinput">clear;
+  </style></head><body><div class="content"><h1>Relat&oacute;rio preliminar do laborat&oacute;rio de CEE</h1><!--introduction--><p>Este trabalho foi realizado pelo grupo 4 de 4&ordf; feira composto por:</p><div><ul><li>Alexandre Apar&iacute;cio N&ordm;73252</li><li>Pedro Ribeiro N&ordm;73221</li><li>Samuel Balula N&ordm;72735</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Defini&ccedil;&atilde;o das matrizes do modelo de estado</a></li><li><a href="#3">Caracteriza&ccedil;&atilde;o da controlabilidade e observabilidade do sistema</a></li><li><a href="#5">Diagrama de Bode do sistema</a></li><li><a href="#6">Manipula&ccedil;&atilde;o de p&oacute;los do sistema por realimenta&ccedil;&atilde;o e estima&ccedil;&atilde;o das vari&aacute;veis de estado</a></li><li><a href="#8">Verifica&ccedil;&atilde;o do c&aacute;lculo dos vectores de ganho</a></li><li><a href="#10">Fun&ccedil;&atilde;o de transfer&ecirc;ncia em cadeia fechada</a></li></ul></div><p>Come&ccedil;a-se por limpar todas as vari&aacute;veis que possam estar definidas antes de executar o c&oacute;digo</p><pre class="codeinput">clear;
 </pre><h2>Defini&ccedil;&atilde;o das matrizes do modelo de estado<a name="2"></a></h2><p>Come&ccedil;a-se por se definir as matrizes que se definem o modelo de estado, que s&atilde;o fornecidas no enunciado:</p><pre class="codeinput">A=[0,0,1,0;0,0,0,1;0,566,-37,0;0,-922,37,0];
 b=[0;0;65;-65];
 c=[1,1,0,0];
-</pre><h2>Caracteriza&ccedil;&atilde;o da controlabilidade e observabilidade do sistema<a name="3"></a></h2><p>Antes de se calcular os vectores de ganho do controlador e do observador, &eacute; necess&aacute;rio determinar se o sistema &eacute; ou n&atilde;o control&aacute;vel e observ&aacute;vel. Criaram-se ent&atilde;o duas macros:</p><div><ul><li>controlab: Recebe a matriz A e o vector b e retorna a respectiva matriz de controlabilidade e uma vari&aacute;vel que &eacute; igual a 1 se o sistema for control&aacute;vel e 0 se n&atilde;o for.</li><li>observab: Recebe a matriz A e o vector c e retorna a respectiva matriz de observabilidade e uma vari&aacute;vel que &eacute; igual a 1 se o sistema for observ&aacute;vel e 0 se n&atilde;o for. Verifica-se que este sistema &eacute; control&aacute;vel e observ&aacute;vel.</li></ul></div><pre class="codeinput">[C,cntr]=controlab(A,b);
+</pre><h2>Caracteriza&ccedil;&atilde;o da controlabilidade e observabilidade do sistema<a name="3"></a></h2><p>Antes de se calcular os vectores de ganho do controlador e do observador, &eacute; necess&aacute;rio determinar se o sistema &eacute; ou n&atilde;o control&aacute;vel e observ&aacute;vel. Criaram-se ent&atilde;o duas macros:</p><div><ul><li>controlab: Recebe a matriz A e o vector b e retorna a respectiva matriz de controlabilidade e uma vari&aacute;vel que &eacute; igual a 1 se o sistema for control&aacute;vel e 0 se n&atilde;o for.</li><li>observab: Recebe a matriz A e o vector c e retorna a respectiva matriz de observabilidade e uma vari&aacute;vel que &eacute; igual a 1 se o sistema for observ&aacute;vel e 0 se n&atilde;o for.</li></ul></div><p>Verifica-se que este sistema &eacute; control&aacute;vel e observ&aacute;vel.</p><pre class="codeinput">[C,cntr]=controlab(A,b);
 C
 cntr
 [O,obsr]=observab(A,c);
@@ -102,8 +102,8 @@ obsr =
 
      1
 
-</pre><h2>Diagrama de Bode do sistema<a name="4"></a></h2><p>Criou-se uma macro para realizar o diagrama de bode do sistema a partir das sua matrizes A, b e c (e assumindo que d=0). Observa-se que o sistema em malha aberta possui pelo um p&oacute;lo na origem e os restantes 3 p&oacute;los perto da frequ&ecirc;ncia de 4Hz, visto que a magnitude decai a -20db por d&eacute;cada at&eacute; essa frequ&ecirc;ncia, passando a decair de seguida com -80db por d&eacute;cada.</p><pre class="codeinput">plot_tf(A,b,c,0.1,100);
-</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2>Manipula&ccedil;&atilde;o de p&oacute;los do sistema por realimenta&ccedil;&atilde;o e estima&ccedil;&atilde;o das vari&aacute;veis de estado<a name="5"></a></h2><p>Come&ccedil;a-se por se definir os valores pr&oacute;prios pretendidos para o controlador (vpp_C) e para o erro do observador (vpp_O):</p><pre class="codeinput">vpp_C=[-70,-20,-10,-10];
+</pre><h2>Diagrama de Bode do sistema<a name="5"></a></h2><p>Criou-se uma macro para realizar o diagrama de bode do sistema a partir das sua matrizes A, b e c (e assumindo que d=0). Observa-se que o sistema em malha aberta possui pelo um p&oacute;lo na origem e os restantes 3 p&oacute;los perto da frequ&ecirc;ncia de 4Hz, visto que a magnitude decai a -20db por d&eacute;cada at&eacute; essa frequ&ecirc;ncia, passando a decair de seguida com -80db por d&eacute;cada.</p><pre class="codeinput">plot_tf(A,b,c,0.1,100);
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2>Manipula&ccedil;&atilde;o de p&oacute;los do sistema por realimenta&ccedil;&atilde;o e estima&ccedil;&atilde;o das vari&aacute;veis de estado<a name="6"></a></h2><p>Come&ccedil;a-se por se definir os valores pr&oacute;prios pretendidos para o controlador (vpp_C) e para o erro do observador (vpp_O):</p><pre class="codeinput">vpp_C=[-70,-20,-10,-10];
 vpp_O=[-50,-50,-30,-30];
 </pre><p>De seguida, executa-se a fun&ccedil;&atilde;o ganhos, que recebe a matriz de controlabilidade e observabilidade do sistema, juntamente com os valores pr&oacute;prios pretendidos para o controlador e para os erros do observador e que retorna os vectores de ganho do controlador (L) e do erro do observador (K)</p><pre class="codeinput">[K,L]=ganhos(C,vpp_C,O,vpp_O,A);
 K
@@ -123,7 +123,25 @@ L =
    -1.1612
     5.0882
 
-</pre><h2>Fun&ccedil;&atilde;o de transfer&ecirc;ncia em cadeia fechada<a name="7"></a></h2><p>Por fim determinou-se o diagrama de Bode do sistema em cadeia fechada. A uni&atilde;o entre o modelo em cadeia aberta e o estimador que ir&atilde;o formar o sistema em cadeia fechada &eacute; realizada pela fun&ccedil;&atilde;o ligacao, que recebe as matrizes do sistema em malha aberta e do estimador em malha aberta e retorna uma vari&aacute;vel em formato sys que descreve o sistema (representado em espa&ccedil;o de de estados) como representado no esquema de simulink.</p><pre class="codeinput">sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
+</pre><h2>Verifica&ccedil;&atilde;o do c&aacute;lculo dos vectores de ganho<a name="8"></a></h2><p>&Eacute; poss&iacute;vel confirmar se os vectores de ganho do controlador e do observador est&atilde;o correctos, calculando os p&oacute;los da nova matriz A para o sistema realimentado <img src="main_eq00698088387970395867.png" alt="$A_C=A-bK$"> e para o observador assimpt&oacute;tico aplicado <img src="main_eq15135731192587570970.png" alt="$A_O=A-Lc$">. Relembrando que os p&oacute;los desejados para o controlador eram:</p><p><img src="main_eq18022138862963877739.png" alt="$$ (-70,-20,-10,-10) $$"></p><p>E para os erros do observador</p><p><img src="main_eq05431007329273798060.png" alt="$$ (-50,-50,-30,-30) $$"></p><p>&Eacute; poss&iacute;vel confirmar se os p&oacute;los est&atilde;o bem c&aacute;lculados calculando os p&oacute;los das novas matrizes A para o sistma realimentado e para o observador assimpt&oacute;tico:</p><pre class="codeinput">eig(A-b*K)
+eig(A-L*c)
+</pre><pre class="codeoutput">
+ans =
+
+  -70.0000
+  -20.0000
+  -10.0000
+  -10.0000
+
+
+ans =
+
+  -50.0000
+  -50.0000
+  -30.0000
+  -30.0000
+
+</pre><p>Visto que os p&oacute;los obtidos computacionalmente s&atilde;o iguais aos desejados e como pelo teorema da separa&ccedil;&atilde;o, os p&oacute;los de um sistema de controlo linear por realimenta&ccedil;&atilde;o podem ser projectados independentemente para o sistema realimentado e para o observador assimpt&oacute;tico sendo este v&aacute;lido para um sistema realimentado pelas vari&aacute;veis de estado estimadas, confirma-se que os vectores de ganho obtidos tanto para o controlador como para erro do observador est&atilde;o correctos.</p><h2>Fun&ccedil;&atilde;o de transfer&ecirc;ncia em cadeia fechada<a name="10"></a></h2><p>Por fim determinou-se o diagrama de Bode do sistema em cadeia fechada. A uni&atilde;o entre o modelo em cadeia aberta e o estimador que ir&atilde;o formar o sistema em cadeia fechada &eacute; realizada pela fun&ccedil;&atilde;o ligacao, que recebe as matrizes do sistema em malha aberta e do estimador em malha aberta e retorna uma vari&aacute;vel em formato sys que descreve o sistema (representado em espa&ccedil;o de de estados) como representado no esquema de simulink.</p><pre class="codeinput">sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
 </pre><p>Assim &eacute; poss&iacute;vel determinar a fun&ccedil;&atilde;o de transfer&ecirc;ncia atrav&eacute;s da fun&ccedil;&atilde;o tf:</p><pre class="codeinput">sys_tf=tf(sys_ss)
 </pre><pre class="codeoutput">
 sys_tf =
@@ -145,11 +163,11 @@ setoptions(h,<span class="string">'FreqUnits'</span>,<span class="string">'Hz'</
 </pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Relatório preliminar do laboratório de CEE
-% Este trabalho foi realizado por:
+% Este trabalho foi realizado pelo grupo 4 de 4ª feira composto por:
 % 
-% * Alexandre Aparício
-% * Pedro Ribeiro
-% * Samuel Balula
+% * Alexandre Aparício Nº73252
+% * Pedro Ribeiro Nº73221
+% * Samuel Balula Nº72735
 %%
 % Começa-se por limpar todas as variáveis que possam estar definidas
 % antes de executar o código
@@ -171,6 +189,7 @@ c=[1,1,0,0];
 % * observab: Recebe a matriz A e o vector c e retorna a respectiva matriz
 % de observabilidade e uma variável que é igual a 1 se o sistema for
 % observável e 0 se não for.
+%%
 % Verifica-se que este sistema é controlável e observável.
 [C,cntr]=controlab(A,b);
 C
@@ -200,6 +219,29 @@ vpp_O=[-50,-50,-30,-30];
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
 K
 L
+%% Verificação do cálculo dos vectores de ganho
+% É possível confirmar se os vectores de ganho do controlador e do
+% observador estão correctos, calculando os pólos da nova matriz A para o
+% sistema realimentado $A_C=A-bK$ e para o observador assimptótico aplicado $A_O=A-Lc$.
+% Relembrando que os pólos desejados para o controlador eram:
+%
+% $$ (-70,-20,-10,-10) $$
+% 
+% E para os erros do observador
+%
+% $$ (-50,-50,-30,-30) $$
+%
+% É possível confirmar se os pólos estão bem cálculados calculando os pólos
+% das novas matrizes A para o sistma realimentado e para o observador assimptótico:
+eig(A-b*K)
+eig(A-L*c)
+%%
+% Visto que os pólos obtidos computacionalmente são iguais aos desejados e
+% como pelo teorema da separação, os pólos de um sistema de controlo linear por realimentação
+% podem ser projectados independentemente para o sistema realimentado e para o
+% observador assimptótico sendo este válido para um sistema realimentado pelas
+% variáveis de estado estimadas, confirma-se que os vectores de ganho obtidos
+% tanto para o controlador como para erro do observador estão correctos. 
 %% Função de transferência em cadeia fechada
 % Por fim determinou-se o diagrama de Bode do sistema em cadeia fechada. A
 % união entre o modelo em cadeia aberta e o estimador que irão formar o

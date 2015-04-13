@@ -1,9 +1,9 @@
 %% Relatório preliminar do laboratório de CEE
-% Este trabalho foi realizado por:
+% Este trabalho foi realizado pelo grupo 4 de 4ª feira composto por:
 % 
-% * Alexandre Aparício Nº
-% * Pedro Ribeiro Nº
-% * Samuel Balula Nº
+% * Alexandre Aparício Nº73252
+% * Pedro Ribeiro Nº73221
+% * Samuel Balula Nº72735
 %%
 % Começa-se por limpar todas as variáveis que possam estar definidas
 % antes de executar o código
@@ -25,6 +25,7 @@ c=[1,1,0,0];
 % * observab: Recebe a matriz A e o vector c e retorna a respectiva matriz
 % de observabilidade e uma variável que é igual a 1 se o sistema for
 % observável e 0 se não for.
+%%
 % Verifica-se que este sistema é controlável e observável.
 [C,cntr]=controlab(A,b);
 C
@@ -54,6 +55,29 @@ vpp_O=[-50,-50,-30,-30];
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
 K
 L
+%% Verificação do cálculo dos vectores de ganho
+% É possível confirmar se os vectores de ganho do controlador e do
+% observador estão correctos, calculando os pólos da nova matriz A para o
+% sistema realimentado $A_C=A-bK$ e para o observador assimptótico aplicado $A_O=A-Lc$.
+% Relembrando que os pólos desejados para o controlador eram:
+%
+% $$ (-70,-20,-10,-10) $$
+% 
+% E para os erros do observador
+%
+% $$ (-50,-50,-30,-30) $$
+%
+% É possível confirmar se os pólos estão bem cálculados calculando os pólos
+% das novas matrizes A para o sistma realimentado e para o observador assimptótico:
+eig(A-b*K)
+eig(A-L*c)
+%%
+% Visto que os pólos obtidos computacionalmente são iguais aos desejados e
+% como pelo teorema da separação, os pólos de um sistema de controlo linear por realimentação
+% podem ser projectados independentemente para o sistema realimentado e para o
+% observador assimptótico sendo este válido para um sistema realimentado pelas
+% variáveis de estado estimadas, confirma-se que os vectores de ganho obtidos
+% tanto para o controlador como para erro do observador estão correctos. 
 %% Função de transferência em cadeia fechada
 % Por fim determinou-se o diagrama de Bode do sistema em cadeia fechada. A
 % união entre o modelo em cadeia aberta e o estimador que irão formar o
