@@ -41,6 +41,11 @@ obsr
 % década até essa frequência, passando a decair de seguida com -80db por
 % década.
 plot_tf(A,b,c,0.1,100);
+%%
+% Através do diagrama de Bode é então possível concluir que o sistema
+% possui 4 pólos como esperado, visto que o motor DC irá introduzir dois
+% pólos (reais) e os dois graus de liberdade da barra irão introduzir
+% outros dois pólos (complexos, um para cada grau de liberdade) .
 %% Manipulação de pólos do sistema por realimentação e estimação das variáveis de estado
 % Começa-se por se definir os valores próprios pretendidos para o
 % controlador (vpp_C) e para o erro do observador (vpp_O):
@@ -69,8 +74,8 @@ L
 %
 % É possível confirmar se os pólos estão bem cálculados calculando os pólos
 % das novas matrizes A para o sistma realimentado e para o observador assimptótico:
-eig(A-b*K)
-eig(A-L*c)
+polos_C=eig(A-b*K)
+polos_O=eig(A-L*c)
 %%
 % Visto que os pólos obtidos computacionalmente são iguais aos desejados e
 % como pelo teorema da separação, os pólos de um sistema de controlo linear por realimentação
@@ -95,3 +100,7 @@ sys_tf=tf(sys_ss)
 % E obter o respectivo diagrama de bode
 h=bodeplot(sys_ss,{2*pi*0.1,2*pi*100});
 setoptions(h,'FreqUnits','Hz','grid','on');
+%%
+% Os pólos obtidos agora foram deslocados, de modo que já não existe pólo
+% na origem, estando os quatro pólos do sistema realimentado distribuídos
+% entre a gama de frequências de 1 a 10 Hz.
