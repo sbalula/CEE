@@ -38,7 +38,7 @@ M=M+eye(length(vpp_A));
 
 %%
 % Por fim, aplicando o método de Bass-Gura, obtém-se os valores para os
-% vectores de ganho do controlador e do observador:
+% vectores de ganho do controlador e do erro do observador:
 K=(pol_C-pol_A)*(inv(M))'*inv(C);
 L=inv(O)*inv(M)*(pol_O-pol_A)';
 

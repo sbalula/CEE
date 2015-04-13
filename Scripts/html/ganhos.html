@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Fun&ccedil;&atilde;o ganhos</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-04-12"><meta name="DC.source" content="ganhos.m"><style type="text/css">
+      --><title>Fun&ccedil;&atilde;o ganhos</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-04-13"><meta name="DC.source" content="ganhos.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -85,7 +85,7 @@ M=zeros(length(vpp_A));
 </pre><p>Transp&otilde;e-se o vector referente ao polin&oacute;mio caracter&iacute;stico da matriz A e adiciona-se a matriz identidade &agrave; matriz M de modo a obter a matriz de Bass-Gura.</p><pre class="codeinput">pol_A=(pol_A(2:end))';
 
 M=M+eye(length(vpp_A));
-</pre><p>Por fim, aplicando o m&eacute;todo de Bass-Gura, obt&eacute;m-se os valores para os vectores de ganho do controlador e do observador:</p><pre class="codeinput">K=(pol_C-pol_A)*(inv(M))'*inv(C);
+</pre><p>Por fim, aplicando o m&eacute;todo de Bass-Gura, obt&eacute;m-se os valores para os vectores de ganho do controlador e do erro do observador:</p><pre class="codeinput">K=(pol_C-pol_A)*(inv(M))'*inv(C);
 L=inv(O)*inv(M)*(pol_O-pol_A)';
 </pre><pre class="codeinput"><span class="keyword">end</span>
 </pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
@@ -130,7 +130,7 @@ M=M+eye(length(vpp_A));
 
 %%
 % Por fim, aplicando o método de Bass-Gura, obtém-se os valores para os
-% vectores de ganho do controlador e do observador:
+% vectores de ganho do controlador e do erro do observador:
 K=(pol_C-pol_A)*(inv(M))'*inv(C);
 L=inv(O)*inv(M)*(pol_O-pol_A)';
 

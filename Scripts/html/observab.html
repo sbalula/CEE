@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Fun&ccedil;&atilde;o ganhos</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-04-12"><meta name="DC.source" content="ganhos.m"><style type="text/css">
+      --><title>Fun&ccedil;&atilde;o observab</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-04-13"><meta name="DC.source" content="observab.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,76 +66,51 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Fun&ccedil;&atilde;o ganhos</h1><p>Esta fun&ccedil;&atilde;o recebe as matrizes de controlabilidade e observabilidade do sistema a controlar e os valores pr&oacute;prios desejados para o controlador e para o erro do observador e retorna vectores de ganho do controlador e do observador. O m&eacute;todo utilizado para calcular estes vectores &eacute; o de Bass-Gura.</p><pre class="codeinput"><span class="keyword">function</span> [K,L] = ganhos( C, vpp_C, O, vpp_O, A )
-</pre><p>A fun&ccedil;&atilde;o come&ccedil;a por determinar os polin&oacute;mios caracter&iacute;sticos da matriz A e os polin&oacute;mios associados aos valores pr&oacute;prios desejados para o controlador e para o erro do observador.</p><pre class="codeinput">vpp_A=eig(A);
-
-pol_A=(poly(vpp_A))';
-pol_C=(poly(vpp_C));
-pol_O=(poly(vpp_O));
-
-pol_C=pol_C(2:end);
-pol_O=pol_O(2:end);
-
-M=zeros(length(vpp_A));
-</pre><p>De seguida calcula-se uma matriz M que &eacute; a matriz de Bass-Gura subtra&iacute;da da matriz identidade atrav&eacute;s do bloco seguinte:</p><pre class="codeinput"><span class="keyword">for</span> j=1:1:length(vpp_A)
-    <span class="keyword">for</span> i=1:1:length(vpp_A)-j
-        M(i+j,j)=pol_A(i+1);
-    <span class="keyword">end</span>
+  </style></head><body><div class="content"><h1>Fun&ccedil;&atilde;o observab</h1><pre class="language-matlab">Esta <span class="string">macro</span> <span class="string">calcula</span> <span class="string">a</span> <span class="string">matriz</span> <span class="string">de</span> <span class="string">observabilidade</span> <span class="string">a</span> <span class="string">partir</span> <span class="string">das</span>
+matrizes <span class="string">A</span> <span class="string">e</span> <span class="string">c</span> <span class="string">de</span> <span class="string">um</span> <span class="string">sistema</span> <span class="string">e</span> <span class="string">retorna</span> <span class="string">true</span> <span class="string">ou</span> <span class="string">false</span> <span class="string">caso</span> <span class="string">o</span>
+sistema <span class="string">seja</span> <span class="string">observ&aacute;vel</span> <span class="string">ou</span> <span class="string">n&atilde;o.</span>
+</pre><pre class="codeinput"><span class="keyword">function</span> [ obsr,bool ] = observab( A,c )
+</pre><p>A fun&ccedil;&atilde;o come&ccedil;a por determinar a dimens&atilde;o do vector b do sistema e inicializar uma matriz onde ficar&aacute; alocada a matriz de observabilidade.</p><pre class="codeinput">d=length(c);
+obsr=zeros(d);
+</pre><p>De seguida &eacute; calculada a matriz de observabilidade:</p><pre class="codeinput"><span class="keyword">for</span> i=0:1:d-1
+    obsr(i+1,:)=c*(A^i);
 <span class="keyword">end</span>
-</pre><p>Transp&otilde;e-se o vector referente ao polin&oacute;mio caracter&iacute;stico da matriz A e adiciona-se a matriz identidade &agrave; matriz M de modo a obter a matriz de Bass-Gura.</p><pre class="codeinput">pol_A=(pol_A(2:end))';
-
-M=M+eye(length(vpp_A));
-</pre><p>Por fim, aplicando o m&eacute;todo de Bass-Gura, obt&eacute;m-se os valores para os vectores de ganho do controlador e do observador:</p><pre class="codeinput">K=(pol_C-pol_A)*(inv(M))'*inv(C);
-L=inv(O)*inv(M)*(pol_O-pol_A)';
+</pre><p>Por fim &eacute; feito o teste &agrave; observabilidade do sistema (atrav&eacute;s da verifica&ccedil;&atilde;o da caracter&iacute;stica da matriz de observabilidade).</p><pre class="codeinput"><span class="keyword">if</span>(rank(obsr)==d)
+    bool=true;
+<span class="keyword">else</span>
+    bool=false;
+<span class="keyword">end</span>
 </pre><pre class="codeinput"><span class="keyword">end</span>
 </pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Função ganhos
-% Esta função recebe as matrizes de controlabilidade e observabilidade do
-% sistema a controlar e os valores próprios desejados para o controlador e
-% para o erro do observador e retorna vectores de ganho do controlador e do
-% observador. O método utilizado para calcular estes vectores é o de
-% Bass-Gura.
-function [K,L] = ganhos( C, vpp_C, O, vpp_O, A )
+%% Função observab
+%   Esta macro calcula a matriz de observabilidade a partir das
+%   matrizes A e c de um sistema e retorna true ou false caso o 
+%   sistema seja observável ou não.
+function [ obsr,bool ] = observab( A,c )
 %%
-% A função começa por determinar os polinómios característicos da matriz A
-% e os polinómios associados aos valores próprios desejados para o controlador e
-% para o erro do observador.
-vpp_A=eig(A);
-
-pol_A=(poly(vpp_A))';
-pol_C=(poly(vpp_C));
-pol_O=(poly(vpp_O));
-
-pol_C=pol_C(2:end);
-pol_O=pol_O(2:end);
-
-M=zeros(length(vpp_A));
+% A função começa por determinar a dimensão do vector b do sistema e
+% inicializar uma matriz onde ficará alocada a matriz de observabilidade.
+d=length(c);
+obsr=zeros(d);
 %%
-% De seguida calcula-se uma matriz M que é a matriz de Bass-Gura subtraída 
-% da matriz identidade através do bloco
-% seguinte:
-for j=1:1:length(vpp_A)
-    for i=1:1:length(vpp_A)-j
-        M(i+j,j)=pol_A(i+1);
-    end
+% De seguida é calculada a matriz de observabilidade:
+for i=0:1:d-1 
+    obsr(i+1,:)=c*(A^i);
 end
 %%
-% Transpõe-se o vector referente ao polinómio característico da matriz A e
-% adiciona-se a matriz identidade à matriz M de modo a obter a matriz de
-% Bass-Gura.
-pol_A=(pol_A(2:end))';
+% Por fim é feito o teste à observabilidade do sistema (através da
+% verificação da característica da matriz de observabilidade).
 
-M=M+eye(length(vpp_A));
-
-%%
-% Por fim, aplicando o método de Bass-Gura, obtém-se os valores para os
-% vectores de ganho do controlador e do observador:
-K=(pol_C-pol_A)*(inv(M))'*inv(C);
-L=inv(O)*inv(M)*(pol_O-pol_A)';
-
+if(rank(obsr)==d)
+    bool=true;
+else
+    bool=false;
+end
+    
 
 end
+
 
 ##### SOURCE END #####
 --></body></html>
