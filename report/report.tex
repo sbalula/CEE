@@ -56,7 +56,8 @@
 
 \fi
 
-
+\usepackage{listings}
+\usepackage{color}
 \usepackage{facil}                      % Pacote pessoal
 \usepackage{verbatim}                   % Apresentação de código
 \usepackage{graphicx}                   % Include figure files
@@ -88,7 +89,24 @@ includefoot
 %\titlespacing{\subsection}{0pt}{*0}{*0}
 %\titlespacing{\subsubsection}{0pt}{*0}{*0}
 
-
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+	belowcaptionskip=1\baselineskip,
+	frame=L,
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Início %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -126,9 +144,92 @@ Apresentam-se neste documento os dados experimentais e as respostas às questõe
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introdução %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cálculo da matriz de controlabilidade}
 
+De acordo com as informações dadas no enunciado, tomando como vector de estado $x$ dado por \eqref{x} as matrizes do modelo de estado linearizado na forma \eqref{lin} são dadas por \eqref{A}, \eqref{B}, \eqref{C}.
+
+\eq[x]{x = \begin{bmatrix}
+		x_1 &x_2 &x_3 &x_4 
+\end{bmatrix} = \begin{bmatrix}
+\theta & \alpha & \dot\theta& \dot\alpha
+\end{bmatrix}}
+
+\eq[lin]{\begin{cases}
+	\dot x = A x + b u \\
+	y = C x
+\end{cases}}
+
+
+
+\eq[A]{A = \begin{bmatrix}
+		0	&0		&1		&0	\\
+		0	&0		&0		&1	\\
+		0	&566	&-37	&0	\\
+		0	&-922	&37		&0	
+\end{bmatrix}
+}
+
+\eq[B]{b= \begin{bmatrix}
+		0 \\
+		0\\
+		65\\
+		-65
+\end{bmatrix}}
+
+\eq[C]{c = \begin{bmatrix}
+		1 &1	&0	&0
+	\end{bmatrix}
+}
+
+Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculada em {\it Matlab} como se descreve em Listing \ref{list1}.
+
+\eq[contr]{\begin{array}{rcl}
+		\mathcal{C} &= &
+		\begin{bmatrix}
+			b &A b & A^2 b & A^3 b
+		\end{bmatrix}\\
+		&= &
+		\begin{bmatrix}
+			0         &65       &-2405       &52195 \\
+			0         &-65        &2405      &-29055\\
+			65       &-2405       &52195     &-569985\\
+			-65        &2405      &-29055     &-286195
+		\end{bmatrix}
+	\end{array}
+}
+
+Determinou-se que o sistema é controlável (a dimensão da matriz de controlabilidade é igual ao número de variáveis de estado).
+
+\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade C e de observabilidade O. cntr e obsr adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções controlab e observab apresentam-se em anexo em ficheiros com o mesmo nome.}]
+[C,cntr]=controlab(A,b);
+[O,obsr]=observab(A,c);
+\end{lstlisting}
+
+
 \section{Cálculo da matriz de observabilidade}
+A matrix de observabilidade é dada por \eqref{obsr} 
+
+\eq[obsr]{\begin{array}{rcl}
+		\mathcal{O} &= &
+		\begin{bmatrix}
+			c \\
+			c A\\
+			c A^2\\
+			c A^3
+		\end{bmatrix}\\
+		&= &
+		\begin{bmatrix}
+			1     &1    &0     &0\\
+			0     &0     &1     &1\\
+			0  &-356     &0     &0\\
+			0     &0     &0  &-356
+		\end{bmatrix}
+	\end{array}
+}
+Determinou-se que o sistema é observável (a dimensão da matriz de observabilidade é igual ao número de variáveis de estado).
 
 \section{Diagrama de Bode}
+\fig{../img/BodeMalhaAberta.png}{Diagrama de Bode do sistema em cadeira aberta}
+
+Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é então possível concluir que o sistema possui 4 pólos como esperado, visto que o motor DC irá introduzir dois pólos (reais) e os dois graus de liberdade da barra irão introduzir outros dois pólos (complexos, um para cada grau de liberdade) .
 
 \section{Cálculo do vector de ganhos do controlador e observador}
 
