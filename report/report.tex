@@ -1,0 +1,164 @@
+% ****** Start of file .tex ******
+%
+%   This file is based on apssamp.tex, part of the APS files in the REVTeX 4.1 distribution.
+%   Version 4.1r of REVTeX, August 2010
+%
+%   Copyright (c) 2009, 2010 The American Physical Society.
+%   Samuel Balula, Pedro Ribeiro, Luís Macedo, Eduardo Neto 2013
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex filename.tex
+%  2)  bibtex filename
+%  3)  latex filename.tex
+%  4)  latex filename.tex
+
+\documentclass[%
+  reprint,
+  %superscriptaddress,
+  %groupedaddress,
+  %unsortedaddress,
+  %runinaddress,
+  %frontmatterverbose, 
+  %preprint,
+  %showpacs,preprintnumbers,
+  nofootinbib,
+  %nobibnotes,
+  %bibnotes,
+  amsmath,amssymb,
+  aps,
+  %pra,
+  %prb,
+  %rmp,
+  %prstab,
+  %prstper,
+  %floatfix,
+  10pt,
+  a4paper
+]{revtex4-1}
+
+\if11
+% Usual (decimal) numbering
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+% Fix references
+\makeatletter
+\renewcommand{\p@subsection}{}
+\renewcommand{\p@subsubsection}{}
+\makeatother
+
+\fi
+
+
+\usepackage{facil}                      % Pacote pessoal
+\usepackage{verbatim}                   % Apresentação de código
+\usepackage{graphicx}                   % Include figure files
+\usepackage{dcolumn}                    % Align table columns on decimal point
+\usepackage{bm}                         % bold math
+\usepackage[latin1,utf8]{inputenc}      % Tipos de caracteres
+\usepackage[portuges]{babel}            % Português
+\usepackage{indentfirst}                % Identação da primeira linha
+\usepackage{hyperref}                   % add hypertext capabilities
+\usepackage{float}                      %Fixar imagens
+%\usepackage[mathlines]{lineno}          % Enable numbering of text and display math
+%\linenumbers\relax                      % Commence numbering lines
+%\usepackage[compact]{titlesec}
+
+\usepackage[%showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall, % default settings
+%%text={7in,10in},centering,
+margin=0.5in,        %diminuir margens
+%total={6.5in,8.75in}, top=1.2in, left=0.9in, 
+includefoot
+%height=10in,a5paper,hmargin={3cm,0.8in},
+]{geometry}
+
+\begin{document}
+%\preprint{APS/123-QED}
+%\captionsetup[table]{font=small,skip=0pt}
+%\captionsetup[figure]{font=small,skip=0pt}
+%\titlespacing{\section}{0pt}{*0}{*0}            %Poupar espaço
+%\titlespacing{\subsection}{0pt}{*0}{*0}
+%\titlespacing{\subsubsection}{0pt}{*0}{*0}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Início %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+ 
+
+\title{Controlo por retroacção do estado de um braço robot flexível}
+\thanks{Relatório do trabalho de laboratório}
+\author{Alexandre Aparício}
+\email{73252, alexandre.aparicio@tecnico.ulisboa.pt}
+
+\author{Pedro Ribeiro}%
+\email{73221, pedro.q.ribeiro@tecnico.ulisboa.pt}
+\author{Samuel Balula}%
+\email{72735, samuel.balula@tecnico.ulisboa.pt}
+
+\affiliation{
+  Instituto Superior Técnico\\
+  Mestrado em Engenharia Física Tecnológica\\
+  Controlo em Espaço de Estados
+}
+
+\collaboration{Grupo 4 de 4ª feira}
+
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+Neste trabalho de laboratório procede-se ao dimensionamento de um controlador por realimentação de variáveis de estado de uma barra flexível actuada por um motor dc, aproximada por um sistema linear, que inclui um observdor assimptótico e seguimento de referência.
+O modelo é testado em {\it simulink}, recorrendo tanto a simulações como utilizando o sistema real.
+Apresentam-se neste documento os dados experimentais e as respostas às questões laboratoriais.
+\end{abstract}
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introdução %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cálculo da matriz de controlabilidade}
+
+\section{Cálculo da matriz de observabilidade}
+
+\section{Diagrama de Bode}
+
+\section{Cálculo do vector de ganhos do controlador e observador}
+
+\section{Simulação em {\it Simulink}}
+
+\section{Função de transferência em cadeira fechada}
+
+\section{Ensaio com o sistema real}
+
+\section{Resposta sem filtro na saída}
+
+\section{Efeito da variação do polo do pré-filtro}
+
+\section{Ensaio sem sinal do extensómetro}
+
+\section{Ensaios com outras especificações para os pólos do observador e/ou controlador}
+
+\section{Conclusões e Críticas}
+\label{s:conclu}
+%Incluir melhorias propostas à experiência
+
+%\begin{acknowledgments}
+%\end{acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % % % % % % % % % % % % % % %     FIM    % % % % % % % % % % % % % % % % % % % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\nocite{*}
+\bibliography{bibliografia}{}
+\bibliographystyle{plain}% Produces the bibliography via BibTeX.
+\end{document}
+%end of file
