@@ -1,0 +1,92 @@
+\ProvidesPackage{facil}
+
+% Tabela \tabela{label}{nome}{alinhamentos}{dados}
+\newcommand{\tabela}[4][tabela]{
+\begin{table}
+  \caption{\label{#1}{#2}}
+  \begin{ruledtabular}
+    \begin{tabular}{{#3}}
+    #4
+    \end{tabular}
+  \end{ruledtabular}
+\end{table}
+}
+
+% Tabelinha \tabelinha{label}{nome}{alinhamentos}{dados}
+\newcommand{\tabelinha}[4][tabela]{
+\begin{table}
+ \tiny
+  \caption{\label{#1}{#2}}
+  \begin{ruledtabular}
+    \begin{tabular}{{#3}}
+    #4
+    \end{tabular}
+  \end{ruledtabular}
+\end{table}
+}
+
+% Tabelao \tabelao{label}{nome}{alinhamentos}{dados}
+\newcommand{\tabelao}[4][tabela]{
+\begin{table*}
+  \caption{\label{#1}{#2}}
+  \begin{ruledtabular}
+    \begin{tabular}{{#3}}
+    #4
+    \end{tabular}
+  \end{ruledtabular}
+\end{table*}
+}
+
+% Tabelazita \tabelazita{label}{nome}{alinhamentos}{dados}
+\newcommand{\tabelazita}[4][tabela]{
+\begin{table}
+ \footnotesize
+  \caption{\label{#1}{#2}}
+  \begin{ruledtabular}
+    \begin{tabular}{{#3}}
+    #4
+    \end{tabular}
+  \end{ruledtabular}
+\end{table}
+}
+
+%Incluir eq: \eq{label}{expressao}
+\newcommand{\eq}[2][]{
+\begin{equation}
+\label{#1}
+#2
+\end{equation}
+}
+
+%incluir figura \fig[largura]{ficheiro}{legenda}
+\newcommand{\fig}[3][0.37]{
+\begin{figure}[h]
+  \includegraphics[width=#1\textheight]{#2}% Imports eps image
+  \caption{\label{#2} #3}
+\end{figure}
+}
+
+%modulo \abs{}
+\newcommand{\abs}[1]{
+\ensuremath{
+\left\lvert{#1}\right\rvert
+}
+}
+
+%parentises
+\newcommand{\lr}[1]{
+\ensuremath{
+\left(#1\right)
+}
+}
+
+%notação científica \e
+\newcommand{\e}[1]{
+\ensuremath{
+\times 10^{#1}
+}
+}
+
+%referencia a figura (ou outro elemento) \rfig{referencia}
+\newcommand{\rfig}[2][figura]{\hyperref[#2]{#1 \ref*{#2}}}
+
