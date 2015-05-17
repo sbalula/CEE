@@ -179,7 +179,7 @@ De acordo com as informações dadas no enunciado, tomando como vector de estado
 	\end{bmatrix}
 }
 
-Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculada em {\it Matlab} como se descreve em Listing \ref{list1}.
+Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculada em {\it Matlab} como se descreve em \rlis{list1}.
 
 \eq[contr]{\begin{array}{rcl}
 		\mathcal{C} &= &
@@ -198,14 +198,15 @@ Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculad
 
 Determinou-se que o sistema é controlável (a dimensão da matriz de controlabilidade é igual ao número de variáveis de estado).
 
-\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade C e de observabilidade O. cntr e obsr adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções controlab e observab apresentam-se em anexo em ficheiros com o mesmo nome.}]
+\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade $\mathcal{C}$ e de observabilidade $\mathcal{O}$. {\it cntr} e {\it obsr} adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções controlab e observab apresentam-se em anexo em ficheiros com o mesmo nome.}]
 [C,cntr]=controlab(A,b);
 [O,obsr]=observab(A,c);
 \end{lstlisting}
 
 
 \section{Cálculo da matriz de observabilidade}
-A matrix de observabilidade é dada por \eqref{obsr} 
+A matrix de observabilidade é dada por \eqref{obsr}, calculada em {\it Matlab} como se descreve em \rlis{list1}.
+
 
 \eq[obsr]{\begin{array}{rcl}
 		\mathcal{O} &= &
@@ -229,9 +230,36 @@ Determinou-se que o sistema é observável (a dimensão da matriz de observabili
 \section{Diagrama de Bode}
 \fig{../img/BodeMalhaAberta.png}{Diagrama de Bode do sistema em cadeira aberta}
 
-Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é então possível concluir que o sistema possui 4 pólos como esperado, visto que o motor DC irá introduzir dois pólos (reais) e os dois graus de liberdade da barra irão introduzir outros dois pólos (complexos, um para cada grau de liberdade) .
+Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é possível concluir que o sistema possui 4 pólos, tal como esperado. O motor DC introduz dois pólos reais\cite{dcmotor} e a barra dois pólos complexos conjugados, característicos de um movimento oscilatório amortecido.
+
+POLOS
+EXPLICAÇÃO EXISTENCIA
 
 \section{Cálculo do vector de ganhos do controlador e observador}
+No cálculo dos ganhos do controlador e observador utilizou-se a função {\it ganhos}, que recebe como argumentos as matrizes de controlabilidade $\mathcal{C}$, observabilidade $\mathcal{O}$ e da dinâmica $A$, e os valores próprios desejados para o controlador e observador, retornando os ganhos calculados com a fórmula de Bass-Gura, conforme se explicita em \rlis{list2}.
+
+Determinaram-se assim os ganhos, explicitados em \eqref{ganhoK} e \eqref{ganhoL}.
+\eq[ganhoK]{
+	K = \begin{bmatrix}
+	6.0501	&-30.5345	&1.0297	&-0.0933
+	\end{bmatrix}
+}
+
+\eq[ganhoL]{
+	L = 
+	\begin{bmatrix}
+		33.5\\
+		89.5\\
+		-1161.2\\
+		5088.2
+	\end{bmatrix}
+	}
+
+\begin{lstlisting}[label=list2, caption={Código Matlab para o cálculo dos ganhos $K$ do controlador e $L$ do observador a partir das matrizes de controlabilidade $\mathcal{C}$, observabilidade $\mathcal{O}$ e da dinâmica $A$, e os valores próprios desejados para o controlador $vpp\_C$ e observador $vpp\_O$. A função {\it ganhos} apresenta-se em anexo no ficheiro com o mesmo nome.}]
+[K,L]=ganhos(C,vpp_C,O,vpp_O,A);
+\end{lstlisting}
+\subsection{Verificação com teorema de separação}
+??
 
 \section{Simulação em {\it Simulink}}
 
@@ -258,7 +286,7 @@ Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é então poss
 % % % % % % % % % % % % % % % %     FIM    % % % % % % % % % % % % % % % % % % % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\nocite{*}
+\nocite{}
 \bibliography{bibliografia}{}
 \bibliographystyle{plain}% Produces the bibliography via BibTeX.
 \end{document}
