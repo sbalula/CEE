@@ -17,7 +17,7 @@ Model {
       BusOutputAsStruct	      "off"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.4"
+    ComputedModelVersion    "1.5"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -75,9 +75,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Pedro"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 18 12:37:42 2015"
-  RTWModifiedTimeStamp	  353853431
-  ModelVersionFormat	  "1.%<AutoIncrement:4>"
+  LastModifiedDate	  "Mon May 18 15:36:40 2015"
+  RTWModifiedTimeStamp	  353862655
+  ModelVersionFormat	  "1.%<AutoIncrement:5>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -989,7 +989,7 @@ Model {
       NamePlacement	      "alternate"
       Floating		      off
       Location		      [67, 287, 617, 757]
-      Open		      off
+      Open		      on
       NumInputPorts	      "1"
       ZoomMode		      "yonly"
       List {
@@ -1021,10 +1021,10 @@ Model {
       ZOrder		      1
       NamePlacement	      "alternate"
       Floating		      off
-      Location		      [-1150, 200, -600, 670]
+      Location		      [9, 57, 676, 719]
       Open		      on
       NumInputPorts	      "1"
-      ZoomMode		      "yonly"
+      ZoomMode		      "xonly"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
@@ -1054,8 +1054,8 @@ Model {
       ZOrder		      -1
       NamePlacement	      "alternate"
       Floating		      off
-      Location		      [537, 425, 1276, 895]
-      Open		      off
+      Location		      [692, 57, 1359, 719]
+      Open		      on
       NumInputPorts	      "1"
       ZoomMode		      "xonly"
       List {
