@@ -283,9 +283,35 @@ Realizando numericamente estas expressões obtêm-se os valores próprios, que s
 \eq[polo]{det(sI-A+Lc) = 0}
 
 
+\section{Simulação em {\it simulink}}
 
+Apresenta-se na \rfig{../img/simulink.png} o diagrama da simulação efectuada em {\it simulink}, onde o sistema da esquerda representa o compensador e o da direita o processo. Os parâmetros do compensador apresentam-se em \eqref{compensa} e os do processo em \eqref{processo}.
+\eq[compensa]{
+	\begin{cases}
+		A_c = A - bK - Lc\\
+		b_c = -L\\
+		C_c = -K\\
+		D_c = 0
+	\end{cases}
+}
+\eq[processo]{
+	\begin{cases}
+		A_p = A\\
+		b_p = b\\
+		C_p = c\\
+		D_p = 0
+	\end{cases}
+}
 
-\section{Simulação em {\it Simulink}}
+\begin{figure*}[t]
+  \includegraphics[width=.6\textheight]{../img/simulink.png}% Imports eps image
+  \caption{\label{../img/simulink.png} Diagrama da simulação efectuada em {\it simulink}}
+\end{figure*}
+
+\fig{../img/y.png}{Saída do sistema simulado}
+\fig{../img/u.png}{Estímulo do sistema simulado}
+
+Os resultados da simulação apresentam-se nos gráficos das figuras \ref{../img/y.png} e \ref{../img/u.png} para os quais a referência é uma onda quadrada de amplitude unitária.
 
 \section{Função de transferência em cadeira fechada}
 %Determinou-se o diagrama de Bode do sistema em cadeia fechada. 
