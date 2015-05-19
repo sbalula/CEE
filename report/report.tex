@@ -311,13 +311,16 @@ Apresenta-se na \rfig{../img/simulink.png} o diagrama da simulação efectuada e
 \fig{../img/y.png}{Saída do sistema simulado}
 \fig{../img/u.png}{Estímulo do sistema simulado}
 
-Os resultados da simulação apresentam-se nos gráficos das figuras \ref{../img/y.png} e \ref{../img/u.png} para os quais a referência é uma onda quadrada de amplitude unitária.
+Os resultados da simulação apresentam-se nos gráficos das figuras \ref{../img/y.png} e \ref{../img/u.png} para os quais a referência é uma onda quadrada de amplitude unitária e período $5s$.
 
 \section{Função de transferência em cadeira fechada}
 %Determinou-se o diagrama de Bode do sistema em cadeia fechada. 
+\label{CF}	
 A união entre o modelo em cadeia aberta e o estimador que irão formar o sistema em cadeia fechada é realizada pela função ligacao, que recebe as matrizes do sistema em malha aberta e do estimador em malha aberta e retorna uma variável em formato sys que descreve o sistema (representado em espaço de de estados) como representado no esquema de simulink.
 
 \fig{../img/BodeMalhaFechada.png}{Diagrama de Bode do sistema em cadeira fechada}
+
+
 
 \section{Ensaio com o sistema real}
 Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos para o observador assimptótico e para o controlador, e observou-se a resposta do sistema real (a barra cujo ângulo $\theta$ é medido através do potenciómetro e o ângulo de $\alpha$ é medido através do extensómetro). Apresentam-se nas figuras \ref{fig:y_t} e \ref{fig:y_d} os dados obtidos para y na simulação e com o sistema real respectivamente e nas figuras \ref{fig:u_t} e \ref{fig:u_d} os dados obtidos para u na simulação e no sistema real respectivamente:
