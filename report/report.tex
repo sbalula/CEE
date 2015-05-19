@@ -255,7 +255,7 @@ $ -22.1969 + 0.0000i$	&$22.1969$	&$3.5327$
 \section{Cálculo do vector de ganhos do controlador e observador}
 No cálculo dos ganhos do controlador e observador utilizou-se a função {\it ganhos}, que recebe como argumentos as matrizes de controlabilidade $\mathcal{C}$, observabilidade $\mathcal{O}$ e da dinâmica $A$, e os valores próprios desejados para o controlador e observador, retornando os ganhos calculados com a fórmula de Bass-Gura, conforme se explicita em \rlis{list2}.
 
-Determinaram-se assim os ganhos, explicitados em \eqref{ganhoK} e \eqref{ganhoL}.
+Determinaram-se assim os ganhos que se apresentam em \eqref{ganhoK} e \eqref{ganhoL}.
 \eq[ganhoK]{
 	K = \begin{bmatrix}
 	6.0501	&-30.5345	&1.0297	&-0.0933
@@ -276,7 +276,14 @@ Determinaram-se assim os ganhos, explicitados em \eqref{ganhoK} e \eqref{ganhoL}
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
 \end{lstlisting}
 \subsection{Verificação com teorema de separação}
-??
+O teorema da separação permite que o controlador e observador sejam dimensionados separamente, já que o polinómio característico do sistema global pode ser escrito como o produto dos polinómios característicos do controlador \eqref{polc} e observador \eqref{polo}.
+Realizando numericamente estas expressões obtêm-se os valores próprios, que se verificam corresponder aos requeridos, e que por serem numericamente iguais a estes aqui se omitem.
+
+\eq[polc]{det(sI-A+bK) = 0}
+\eq[polo]{det(sI-A+Lc) = 0}
+
+
+
 
 \section{Simulação em {\it Simulink}}
 
