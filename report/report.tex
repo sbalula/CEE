@@ -129,7 +129,7 @@ includefoot
   Controlo em Espaço de Estados
 }
 
-\collaboration{Grupo 4 de 4ª feira}
+\collaboration{Grupo 4A de 4ª feira}
 
 \date{\today}
 
@@ -143,7 +143,7 @@ Apresentam-se neste documento os dados experimentais e as respostas às questõe
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introdução %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Cálculo da matriz de controlabilidade}
+\section{Controlabilidade}
 
 De acordo com as informações dadas no enunciado, tomando como vector de estado $x$ dado por \eqref{x} as matrizes do modelo de estado linearizado na forma \eqref{lin} são dadas por \eqref{A}, \eqref{B}, \eqref{C}.
 
@@ -199,13 +199,13 @@ Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculad
 
 Determinou-se que o sistema é controlável (a dimensão da matriz de controlabilidade é igual ao número de variáveis de estado).
 
-\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade $\mathcal{C}$ e de observabilidade $\mathcal{O}$. {\it cntr} e {\it obsr} adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções controlab e observab apresentam-se em anexo em ficheiros com o mesmo nome.}]
+\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade $\mathcal{C}$ e de observabilidade $\mathcal{O}$. As variáveis {\it cntr} e {\it obsr} adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções {\it controlab} e {\it observab} apresentam-se em anexo em ficheiros com o mesmo nome.}]
 [C,cntr]=controlab(A,b);
 [O,obsr]=observab(A,c);
 \end{lstlisting}
 
 
-\section{Cálculo da matriz de observabilidade}
+\section{Observabilidade}
 A matrix de observabilidade é dada por \eqref{obsr}, calculada em {\it Matlab} como se descreve em \rlis{list1}.
 
 
@@ -233,13 +233,29 @@ Determinou-se que o sistema é observável (a dimensão da matriz de observabili
 
 Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é possível concluir que o sistema possui 4 pólos, tal como esperado. O motor DC introduz dois pólos reais\cite{dcmotor} e a barra dois pólos complexos conjugados, característicos de um movimento oscilatório amortecido.
 
-POLOS
-EXPLICAÇÃO EXISTENCIA
+Calcularam-se os valores próprios da matriz A, que correspondem aos pólos do sistema em cadeia aberta, que se apresentam na tabela \ref{tab1}.
+Um dos pólos reais está na origem e o restante tem módulo bastante próximo do dos dois pólos complexos conjugados. O efeito destes é assim essencialmente conjunto.
+Verifica-se no digrama de Bode que, para cerca de 4Hz dá-se uma variação de fase de -270º devida aos três pólos, que em conjunto com os -90º devidos ao pólo na origem, prefaz a diferença de fase de -360º para grandes valores de frequência. Do mesmo modo, para a amplitude observa-se um declive inicial de -20dB devido ao pólo na origem e um aumento deste em -60dB em cerca de 4Hz, prefazendo um declive de -80dB para grandes valores de frequência.
+
+Tem-se assim que a resposta do sistema se dá para baixas frequências, apresentando atenuações superiores a 60dB para frequências superiores a 10Hz.
+
+\tabela[tab1]{Pólos do sistema em cadeia aberta (valores própios da matriz A)}{ccc}
+{
+	
+$z$	&$\abs{z}$	&$\abs{z}$/(2$\pi$)	\\ 	
+rad $s^{-1}$	&rad $s^{-1}$	& Hz \\ \hline
+$   0.0000 + 0.0000i$	&$0$	&$0$	\\
+$  -7.4016 +23.2085i$	&$24.3601$	&$3.877$	\\
+$  -7.4016 -23.2085i$	&$24.3601$	&$3.877$	\\
+$ -22.1969 + 0.0000i$	&$22.1969$	&$3.5327$
+
+
+}
 
 \section{Cálculo do vector de ganhos do controlador e observador}
 No cálculo dos ganhos do controlador e observador utilizou-se a função {\it ganhos}, que recebe como argumentos as matrizes de controlabilidade $\mathcal{C}$, observabilidade $\mathcal{O}$ e da dinâmica $A$, e os valores próprios desejados para o controlador e observador, retornando os ganhos calculados com a fórmula de Bass-Gura, conforme se explicita em \rlis{list2}.
 
-Determinaram-se assim os ganhos, explicitados em \eqref{ganhoK} e \eqref{ganhoL}.
+Determinaram-se assim os ganhos que se apresentam em \eqref{ganhoK} e \eqref{ganhoL}.
 \eq[ganhoK]{
 	K = \begin{bmatrix}
 	6.0501	&-30.5345	&1.0297	&-0.0933
@@ -260,31 +276,71 @@ Determinaram-se assim os ganhos, explicitados em \eqref{ganhoK} e \eqref{ganhoL}
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
 \end{lstlisting}
 \subsection{Verificação com teorema de separação}
-??
+O teorema da separação permite que o controlador e observador sejam dimensionados separamente, já que o polinómio característico do sistema global pode ser escrito como o produto dos polinómios característicos do controlador \eqref{polc} e observador \eqref{polo}.
+Realizando numericamente estas expressões obtêm-se os valores próprios, que se verificam corresponder aos requeridos, e que por serem numericamente iguais a estes aqui se omitem.
 
-\section{Simulação em {\it Simulink}}
+\eq[polc]{det(sI-A+bK) = 0}
+\eq[polo]{det(sI-A+Lc) = 0}
+
+
+\section{Simulação em {\it simulink}}
+
+Apresenta-se na \rfig{../img/simulink.png} o diagrama da simulação efectuada em {\it simulink}, onde o sistema da esquerda representa o compensador e o da direita o processo. Os parâmetros do compensador apresentam-se em \eqref{compensa} e os do processo em \eqref{processo}.
+\eq[compensa]{
+	\begin{cases}
+		A_c = A - bK - Lc\\
+		b_c = -L\\
+		C_c = -K\\
+		D_c = 0
+	\end{cases}
+}
+\eq[processo]{
+	\begin{cases}
+		A_p = A\\
+		b_p = b\\
+		C_p = c\\
+		D_p = 0
+	\end{cases}
+}
+
+\begin{figure*}[t]
+  \includegraphics[width=.6\textheight]{../img/simulink.png}% Imports eps image
+  \caption{\label{../img/simulink.png} Diagrama da simulação efectuada em {\it simulink}}
+\end{figure*}
+
+\fig{../img/y.png}{Saída do sistema simulado}
+\fig{../img/u.png}{Estímulo do sistema simulado}
+
+Os resultados da simulação apresentam-se nos gráficos das figuras \ref{../img/y.png} e \ref{../img/u.png} para os quais a referência é uma onda quadrada de amplitude unitária e período $5s$.
 
 \section{Função de transferência em cadeira fechada}
+%Determinou-se o diagrama de Bode do sistema em cadeia fechada. 
+\label{CF}	
+A união entre o modelo em cadeia aberta e o estimador que irão formar o sistema em cadeia fechada é realizada pela função ligacao, que recebe as matrizes do sistema em malha aberta e do estimador em malha aberta e retorna uma variável em formato sys que descreve o sistema (representado em espaço de de estados) como representado no esquema de simulink.
+
+\fig{../img/BodeMalhaFechada.png}{Diagrama de Bode do sistema em cadeira fechada}
+
+
 
 \section{Ensaio com o sistema real}
 Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos para o observador assimptótico e para o controlador, e observou-se a resposta do sistema real (a barra cujo ângulo $\theta$ é medido através do potenciómetro e o ângulo de $\alpha$ é medido através do extensómetro). Apresentam-se nas figuras \ref{fig:y_t} e \ref{fig:y_d} os dados obtidos para y na simulação e com o sistema real respectivamente e nas figuras \ref{fig:u_t} e \ref{fig:u_d} os dados obtidos para u na simulação e no sistema real respectivamente.
 \begin{figure}
-\includegraphics[width=3.5in]{y.png}
+\includegraphics[width=3.5in]{../img/y.png}
 \caption{Dados obtidos por Simulink para a variação da saída $(y(t))$ com o tempo}
 \label{fig:y_t}
 \end{figure}
 \begin{figure}
-\includegraphics[width=3.5in]{y_dados_01.png}
+\includegraphics[width=3.5in]{../img/y_dados_01.png}
 \caption{Dados obtidos para a saída ($y(t)=\theta(t)+\alpha(t)$) com o sistema real.}
 \label{fig:y_d}
 \end{figure}
 \begin{figure}
-\includegraphics[width=3.5in]{u.png}
+\includegraphics[width=3.5in]{../img/u.png}
 \caption{Dados obtidos por Simulink para a variação da saída $(u(t))$ com o tempo}
 \label{fig:u_t}
 \end{figure}
 \begin{figure}
-\includegraphics[width=3.5in]{u_dados_01.png}
+\includegraphics[width=3.5in]{../img/u_dados_01.png}
 \caption{Dados obtidos para $u(t)$ com o sistema real}
 \label{fig:u_d}
 \end{figure}
