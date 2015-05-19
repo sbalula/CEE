@@ -264,6 +264,10 @@ Determinaram-se assim os ganhos, explicitados em \eqref{ganhoK} e \eqref{ganhoL}
 \section{Simulação em {\it Simulink}}
 
 \section{Função de transferência em cadeira fechada}
+%Determinou-se o diagrama de Bode do sistema em cadeia fechada. 
+A união entre o modelo em cadeia aberta e o estimador que irão formar o sistema em cadeia fechada é realizada pela função ligacao, que recebe as matrizes do sistema em malha aberta e do estimador em malha aberta e retorna uma variável em formato sys que descreve o sistema (representado em espaço de de estados) como representado no esquema de simulink.
+
+\fig{../img/BodeMalhaFechada.png}{Diagrama de Bode do sistema em cadeira fechada}
 
 \section{Ensaio com o sistema real}
 
