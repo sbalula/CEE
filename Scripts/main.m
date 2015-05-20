@@ -98,7 +98,7 @@ sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
 sys_tf=tf(sys_ss)
 %%
 % E obter o respectivo diagrama de bode
-h=bodeplot(sys_ss,{2*pi*0.1,2*pi*100});
+h=bodeplot(sys_ss,{2*pi*0.1,2*pi*10000});
 setoptions(h,'FreqUnits','Hz','grid','on');
 %%
 % Os pólos obtidos agora foram deslocados, de modo que já não existe pólo
