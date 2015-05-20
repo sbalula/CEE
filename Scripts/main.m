@@ -49,8 +49,8 @@ plot_tf(A,b,c,0.1,100);
 %% Manipulação de pólos do sistema por realimentação e estimação das variáveis de estado
 % Começa-se por se definir os valores próprios pretendidos para o
 % controlador (vpp_C) e para o erro do observador (vpp_O):
-vpp_C=[-70,-20,-1+5i,-1-5i];
-vpp_O=[-50,-50,-30,-30];
+vpp_C=[-70,-20,-10,-10];
+vpp_O=[-50,-50,-30+40i,-30-40i];
 %%
 % De seguida, executa-se a função ganhos, que recebe a matriz de
 % controlabilidade e observabilidade do sistema, juntamente com os valores
