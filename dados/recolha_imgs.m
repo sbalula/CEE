@@ -1,12 +1,14 @@
 clear;
+hold off;
+close all;
 
 str='dados_10_2';
 
 dat=importdata(strcat(str,'.txt'));
 
 subplot(3,1,1);
-plot(dat(1:end,1),dat(1:end,6));
-title('u - wnpf=2');
+plot(dat(1:end,1),dat(1:end,8));
+title('u - wndf=2');
 xlabel('Tempo (s)');
 ylabel('Amplitude'); hold on;
 
@@ -15,8 +17,8 @@ str='dados_10_10';
 dat=importdata(strcat(str,'.txt'));
 
 subplot(3,1,2);
-plot(dat(1:end,1),dat(1:end,6));
-title('u - wnpf=10');
+plot(dat(1:end,1),dat(1:end,8));
+title('u - wndf=10');
 xlabel('Tempo (s)');
 ylabel('Amplitude'); hold on;
 
@@ -25,8 +27,8 @@ str='dados_10_25';
 dat=importdata(strcat(str,'.txt'));
 
 subplot(3,1,3);
-plot(dat(1:end,1),dat(1:end,6));
-title('u - wnpf=25');
+plot(dat(1:end,1),dat(1:end,8));
+title('u - wndf=25');
 xlabel('Tempo (s)');
-ylabel('Amplitude');
+ylabel('Amplitude'); hold off;
 %print('-dpng',strcat('C:\Users\Pedro\Documents\CEE\imgs\',str,'\',str,'_y'));

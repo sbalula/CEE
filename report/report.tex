@@ -405,8 +405,8 @@ Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos 
 \caption{Dados obtidos para $u(t)$ com o sistema real}
 \label{fig:u_d}
 \end{figure}
-Quanto à saída obtida observas-se que, apesar de ser muito semelhante à saída obtida através da simulação computacional, na simulação o valor de y tende para valores bem determinados de amplitude sempre que se varia a referência (neste caso, a referência é uma onda quadrada com um período de $T=5$s), enquanto que no sistema real é possivel notar a existência de uma pequena oscilação em torno dos valores onde a barra se deveria encontrar estática. Tal siginfica que quando a barra deveria estar parada, a sua ponta ainda vibra, mesmo que pouco. Tal pode dever-se à zona morta do motor utilizado, visto que o controlador já não consegue fornecer energia suficiente para que o motor actue na barra de modo a esta ficar perfeitamente imóvel.\\
-Também comparando os resultados obtidos para u, é possível confirmar a perturbação da zona morta do motor visto que o valor de u, que é o sinal que actua sobre o motor,  na simulação tende para 0 suavemente, enquanto que na prática u varia impulsivamente, o que é uma tentativa do controlador de conseguir controlar o motor fora da sua zona morta. Quando o valor obtido para a ponta da barra finalmente se aproxima à com o valor na referência, o controlador continua a enviar um sinal ao motor para que este actue de modo a anular as vibrações na barra, no entanto como este não responde, o controlador continua a enviar um  sinal u diferente de 0 para actuar o motor, como se vê na figura \ref{fig:u_d}, enquanto que para um motor perfeito, como é o caso da figura \ref{fig:u_t}, o sinal u vai tender assimptóticamente para 0.
+Quanto à saída obtida observa-se que, apesar de ser muito semelhante à saída obtida através da simulação computacional, na simulação o valor de y tende para valores bem determinados de amplitude sempre que se varia a referência (neste caso, a referência é uma onda quadrada com um período de $T=5$s), enquanto que no sistema real é possivel notar a existência de uma pequena oscilação em torno dos valores onde a barra se deveria encontrar estática. Isto siginfica que quando a barra deveria estar parada, a sua ponta ainda vibra, mesmo que pouco. Tal pode dever-se à zona morta do motor utilizado, visto que o controlador já não consegue fornecer energia suficiente para que o motor actue na barra de modo a esta ficar perfeitamente imóvel.\\
+Também comparando os resultados obtidos para u, é possível confirmar a perturbação da zona morta do motor visto que este valor, que é o sinal que actua sobre o motor,  na simulação tende para 0 suavemente, enquanto que na prática u varia impulsivamente, o que é uma tentativa do controlador de estabilizar a ponta da barra. Quando o valor obtido para a ponta da barra finalmente se aproxima ao valor na referência, o controlador continua a enviar um sinal ao motor para que este actue de modo a anular as vibrações na barra, no entanto como este não responde, o controlador continua a enviar um sinal u diferente de 0 para actuar o motor, como se vê na figura \ref{fig:u_d}, enquanto que para um sistema perfeito, como é o caso da figura \ref{fig:u_t}, o sinal u vai tender assimptoticamente para 0.
 
 \section{Resposta sem filtro na saída}
 Anulando o filtro no sinal do extensómetro através do esquema de {\it simulink}, obtive-se o sinal $u$ e $y$ representados nas figuras \ref{fig:u_00} e \ref{fig:y_00} respectivamente.\\
@@ -420,25 +420,26 @@ Anulando o filtro no sinal do extensómetro através do esquema de {\it simulink
 \caption{Dados obtidos para $(u)$ com o sistema real}
 \label{fig:u_00}
 \end{figure}
-Nota-se imediatamente que os sinais obtidos são agora mais parecidos com as simulações feitas no {\it simulink}, visto que a introdução de um filtro que elimina as altas frequências num sensor é semelhante a baixar a frequência de amostragem do sensor, pois as variações rápidas que são medidas não chegam ao controlador. Assim sendo, visto que sem filtro a estimação é mais rápida que com o filtro, obtém-se um resultado mais aproximado da simulação (que é ideal).\\
-É de notar que , de modo semelhante ao que pode ser observado nos resultados da secção anterior, o sinal $u$ nunca chega a ir exactamente para 0 como é observado na simulação, visto que chega a um ponto que o sinal enviado para corrigir a posição do motor não é suficiente para que este actue, o que resulta num erro na entrada do controlador e consequentemente num sinal $u$ à saída deste diferente de 0.
+
+Nota-se imediatamente que os sinais obtidos são agora mais parecidos com as simulações feitas no Simulink, visto que a introdução de um filtro que elimina as altas frequências num sensor é semelhante a baixar a frequência de amostragem do sensor, pois as variações rápidas que são medidas não chegam ao controlador. Assim sendo, visto que sem filtro a estimação é mais rápida que com o filtro, obtém-se um resultado mais aproximado da simulação (que é ideal).\\
+É de notar que, de modo semelhante ao que pode ser observado nos resultados da secção anterior, o sinal $u$ nunca chega a ir exactamente para 0 como é observado na simulação, visto que chega a um ponto que o sinal enviado para corrigir a posição do motor não é suficiente para que este actue, o que resulta num erro na entrada do controlador e consequentemente num sinal $u$ à saída deste diferente de 0.
 
 \section{Efeito da variação do polo do pré-filtro}
-A introdução de um filtro passa-baixo na referência irá eliminar as componentes de alta frequência deste sinal, que neste caso, se escolheu ser uma onda quadrada com frequência $f=0.2$Hz. Visto que a onda quadrada varia muito rapidamente, passando quase instantâneamente do seu valor máximo para o seu valor mínimo a cada meio período, isto leva a um comportamento muito impulsivo do sistema (e consequentemente da estrutura de controlo). A filtragem da referência leva a uma suavização deste sinal, resultanto num comportamento mais suave do sistema.\\
-Como é possivel observar nas figuras \ref{fig:pf_y}, \ref{fig:pf_u}, \ref{fig:pf_ref}, à medida que se diminui o valor da variável wnpf, vai-se deslocando o pólo deste filtro cada vez mais para a esquerda, sendo que quando wnpf=0, o filtro filtra todas as frequências (sendo a referência 0 para qualquer t). Esta filtragem irá eliminar as altas frequências do sinal de entrada, que estimulam um comportamento muito rápido do sistema, o que implica que quanto menor for a frequência de corte, maior será a suavidade com que o sistema vai tender para a estabilidade.
+A introdução de um filtro passa-baixo na referência irá eliminar as componentes de alta frequência deste sinal, que neste caso, se escolheu ser uma onda quadrada com frequência $f=0.2$Hz. Visto que a onda quadrada varia muito rapidamente, passando quase instantaneamente do seu valor máximo para o seu valor mínimo a cada meio período, isto leva a um comportamento muito impulsivo do sistema (e consequentemente da estrutura de controlo). A filtragem da referência leva a uma suavização deste sinal, resultanto num comportamento mais suave do sistema.\\
+Como é possivel observar nas figuras \ref{fig:pf_y}, \ref{fig:pf_u}, \ref{fig:pf_ref}, à medida que se diminui o valor da variável wndf, vai-se deslocando o pólo deste filtro cada vez mais para a esquerda, sendo que quando wndf=0, o filtro filtra todas as frequências (sendo a referência 0 para qualquer t). Esta filtragem irá eliminar as altas frequências do sinal de entrada, que estimulam um comportamento muito rápido do sistema, o que implica que quanto menor for a frequência de corte, maior será a suavidade com que o sistema vai tender para a estabilidade.
 \begin{figure}[t]
 \includegraphics[width=3.5in]{../img/y_filtro.png}
-\caption{Dados obtidos para a saída ($y$) do sistema real com vários valores da variável wpfn.}
+\caption{Dados obtidos para a saída ($y$) do sistema real com vários valores da variável wndf.}
 \label{fig:pf_y}
 \end{figure}
 \begin{figure}[t]
 \includegraphics[width=3.5in]{../img/u_filtro.png}
-\caption{Dados obtidos para o sinal de actuação ($u$) do sistema real com vários valores da variável wpfn.}
+\caption{Dados obtidos para o sinal de actuação ($u$) do sistema real com vários valores da variável wndf.}
 \label{fig:pf_u}
 \end{figure}
 \begin{figure}[t]
 \includegraphics[width=3.5in]{../img/ref_filtro.png}
-\caption{Dados obtidos para de referência ($r$) do sistema real com vários valores da variável wpfn}
+\caption{Dados obtidos para de referência ($r$) do sistema real com vários valores da variável wndf.}
 \label{fig:pf_ref}
 \end{figure}
 É de realçar que quando o sistema funciona neste regime está-se a atrasar a resposta do sistema face a uma variação externa em troca da sua estabilidade e suavidade. Logo, caso se queira determinar os limites do controlador implementado, não é favorável a implementação de um pré-filtro, da mesma maneira que caso o sistema fosse implementado num sistema comercial, já seria favorável a implementação deste filtro, de modo a conservar os equipamentos controlados.
@@ -446,8 +447,8 @@ Como é possivel observar nas figuras \ref{fig:pf_y}, \ref{fig:pf_u}, \ref{fig:p
 \section{Ensaio sem sinal do extensómetro}
 Os resultados obtidos para a saída do sistema e para a saída do controlador quando o sinal do extensómetro não é utilizado na realimentação apresentam-se nas figuras \ref{fig:y_next} e \ref{fig:u_next}.\\
 O sinal na saída do sistema é semelhante ao que foi obtido para o caso em que se implementou um filtro no extensómetro, visto que a eliminação do sinal do extensómetro na realimentação deverá ser equivalente ao caso limite em que o filtro deste corta todas as frequências.\\
-Em termos práticos, eliminação do sinal do extensómetro na realimentação significa que o sistema irá perder sensibilidade às variações do ângulo $\alpha$, visto que toda a informação que pode ser obtida acerca deste é a partir da actuação do potenciómetro devido à inércia da barra.
 
+Em termos práticos, eliminação do sinal do extensómetro na realimentação significa que o sistema irá perder sensibilidade às variações do ângulo $\alpha$, visto que toda a informação que pode ser obtida acerca deste é origina da actuação do potenciómetro devido à inércia da barra.
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_0n/dados_0n_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema sem realimentação do extensómetro}
@@ -475,7 +476,7 @@ E para os pólos do observador:
 \end{bmatrix}
 \end{equation}
 É expectável que com estes pólos se induza um comportamento mais rápido no observador assimptótico, visto que se está a afastar os seus pólos para frequências mais altas comparativamente com o caso analisado nas outras secções.\\
-É possível observar que o sinal que sai do controlador ($u$) varia de forma mais impulsiva que com os valores prórpios escolhidos anteriormente. Isto é uma consequência do afastamento dos pólos do observador, que o tornam mais rápido e que por isso induz mais volatilidade na saída do controlador.\\
+É possível observar que o sinal que sai do controlador ($u$) varia de forma mais impulsiva que com os valores prórpios escolhidos anteriormente. Isto é uma consequência do afastamento dos pólos do observador, que o tornam mais rápido e que por isso induz volatilidade na saída do controlador.\\
 Na saída do sistema ($y$) não existem diferenças relevantes entre os dois sinais obtidos, pelo que se pode concluir que apesar de se aumentado a rapidez do observador (tornando-o mais sensível às variações de alta frequência), a mecânica do sistema já atingiu o limite para a rapidez de actuação máxima.\\
 Os dados obtidos para este ensaio estão representados nas figuras \ref{fig:y_pri} e \ref{fig:u_pri}.
 \begin{figure}[t]
