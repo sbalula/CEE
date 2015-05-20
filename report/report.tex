@@ -233,9 +233,9 @@ Determinou-se que o sistema é observável (a dimensão da matriz de observabili
 
 Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é possível concluir que o sistema possui 4 pólos, tal como esperado. O motor DC introduz dois pólos reais\cite{dcmotor} e a barra dois pólos complexos conjugados, característicos de um movimento oscilatório amortecido.
 
-Calcularam-se os valores próprios da matriz A, que correspondem aos pólos do sistema em cadeia aberta, que se apresentam na tabela \ref{tab1}.
-Um dos pólos reais está na origem e o restante tem módulo bastante próximo do dos dois pólos complexos conjugados. O efeito destes é assim essencialmente conjunto.
-Verifica-se no digrama de Bode que, para cerca de 4Hz dá-se uma variação de fase de -270º devida aos três pólos, que em conjunto com os -90º devidos ao pólo na origem, prefaz a diferença de fase de -360º para grandes valores de frequência. Do mesmo modo, para a amplitude observa-se um declive inicial de -20dB devido ao pólo na origem e um aumento deste em -60dB em cerca de 4Hz, prefazendo um declive de -80dB para grandes valores de frequência.
+Calcularam-se os valores próprios da matriz A, que correspondem aos pólos do sistema em cadeia aberta, que se apresentam na tabela \ref{tab1} e estão representados na \rfig{../img/BodeMalhaAberta.png}.
+Como se pode observar, um dos pólos reais está na origem e o restante tem módulo bastante próximo do dos dois pólos complexos conjugados. O efeito destes é assim essencialmente conjunto.
+\par Verifica-se no digrama de Bode que, para cerca de 4Hz dá-se uma variação de fase de -270º devida aos três pólos, que em conjunto com os -90º devidos ao pólo na origem, prefaz a diferença de fase de -360º para grandes valores de frequência. Do mesmo modo, para a amplitude observa-se um declive inicial de -20dB devido ao pólo na origem e um aumento deste em -60dB em cerca de 4Hz, prefazendo um declive de -80dB para grandes valores de frequência.
 
 Tem-se assim que a resposta do sistema se dá para baixas frequências, apresentando atenuações superiores a 60dB para frequências superiores a 10Hz.
 
@@ -251,6 +251,16 @@ $ -22.1969 + 0.0000i$	&$22.1969$	&$3.5327$
 
 
 }
+
+\fig{../img/OpenZeroPole.png}{Pólos do sistema em cadeia aberta, respresentados no plano complexo.}
+
+\par Ainda relativamente ao sistema em malha aberta e devido a discussão com o professor na aula de laboratório, construiu-se o  gráfico da \rfig{../img/OpenRootLocus.png}, recorrendo à função \verb+rlocus()+ do Matlab.
+
+\fig{../img/OpenRootLocus.png}{\textit{Root Locus} do sistema em malha aberta.}
+
+\par Na perspectiva do \textit{root locus} podem observar-se as trajectórias dos quatro pólos no plano complexo quando o ganho é variado. Desta forma, o ganho do controlador do sistema poderia ter sido desenhado procedendo à escolha dos pólos que respeitariam uma certa condição a impor. Por outras palavras, conforme o comportamento a impor ao sistema ou a resposta desejada do mesmo, o ganho (controlador proporcional) seria escolhido conforme a nova localização para os pólos.
+\par O gráfico evidencia propriedades características do \textit{root locus}, como esperado, nomeadamente a simetria relativa ao eixo real e o ângulo de abertura dos pólos. Pode ainda observar-se que quando o ganho chega a um certo valor, os pólos oscilatórios cruzam o eixo imaginário, ficando com parte real positiva, logo instáveis. Relativamente aos pólos reais, com módulo negativo, estes, a partir de um certo valor de ganho tornam-se complexos conjugados, introduzindo mais oscilações ao sistema. Ainda antes disto, os pólos vão-se aproximando até que, a um certo ponto se tornam num mesmo pólo real negativo duplo.
+
 
 \section{Cálculo do vector de ganhos do controlador e observador}
 No cálculo dos ganhos do controlador e observador utilizou-se a função {\it ganhos}, que recebe como argumentos as matrizes de controlabilidade $\mathcal{C}$, observabilidade $\mathcal{O}$ e da dinâmica $A$, e os valores próprios desejados para o controlador e observador, retornando os ganhos calculados com a fórmula de Bass-Gura, conforme se explicita em \rlis{list2}.
@@ -303,7 +313,7 @@ Apresenta-se na \rfig{../img/simulink.png} o diagrama da simulação efectuada e
 	\end{cases}
 }
 
-\begin{figure*}[t]
+\begin{figure*}[T]
   \includegraphics[width=.6\textheight]{../img/simulink.png}% Imports eps image
   \caption{\label{../img/simulink.png} Diagrama da simulação efectuada em {\it simulink}}
 \end{figure*}
@@ -320,7 +330,43 @@ A união entre o modelo em cadeia aberta e o estimador que irão formar o sistem
 
 \fig{../img/BodeMalhaFechada.png}{Diagrama de Bode do sistema em cadeira fechada.}
 
+\par Foi ainda estudada, com o auxílio da função \verb+step()+ do Matlab, a resposta à função escalão unitário, ou de Heaviside, do sistema em malha fechada, que se pode analisar na \rfig{../img/ClosedStepResponse.png}. Recorreu-se ainda à função \verb+stepinfo()+ para obter mais informações, que estão condensadas na tabela \ref{tab_stepinfo}:
 
+\tabela[tab_stepinfo]{Informações relativas à resposta à função de Heaviside unitária.}{ccc}
+{
+	
+Grandeza		&		Valor		\\ \hline	
+RiseTime (s)		&		0.3099	\\ 
+SettilingTime (s)	&		0.7728	\\
+SettlingMin		&		0.9001	\\
+SettlingMax		&		0.9990	\\
+Overshoot(\%)	&		0		\\
+Undershoot(\%)	&		45.8744	\\
+Peak			&		0.9990	\\
+PeakTime(s)		&		1.1587
+}
+
+
+
+
+
+
+\fig{../img/ClosedStepResponse.png}{Resposta temporal do sistema em malha fechada à função de Heaviside.}
+
+
+
+
+
+
+\par PARA ADICIONAR AO QUE VIER RELATIVO A ESTA PARTE
+\par Os pólos e zeros do sistema em malha fechada podem ser observados\footnote{De notar que os símbolos dos pólos a azul mais carregado representam pólos duplos} na \rfig{../img/ClosedZeroPole.png}. 
+
+\fig{../img/ClosedZeroPole.png}{Pólos e zeros do sistema em malha fechada no plano complexo.}
+\par Ainda relativamente à temática do \textit{root locus} foi construído o gráfico da \rfig{../img/ClosedRootLocus.png}, por forma a poder visualizar o que acontecece ao sistem caso se variasse o ganho e por forma a interiozar novos conceitos, dados que não somos alunos de Electrotécnica.
+
+\fig{../img/ClosedRootLocus.png}{\textit{Root Locus} do sistema em malha fechada.}
+
+Neste gráfico observa-se o típico comportamento dos zeros - não são afectados pelo ganho, pelo que permanecem estáticos. Podem também observar-se trajectórias de quatro pólos que cruzam o eixo imaginário, pelo que, puxando pelo ganho, facilmente se tornam estes instáveis. 
 
 \section{Ensaio com o sistema real}
 Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos para o observador assimptótico e para o controlador, e observou-se a resposta do sistema real (a barra cujo ângulo $\theta$ é medido através do potenciómetro e o ângulo de $\alpha$ é medido através do extensómetro). Apresentam-se nas figuras \ref{fig:y_t} e \ref{fig:y_d} os dados obtidos para y na simulação e com o sistema real respectivamente e nas figuras \ref{fig:u_t} e \ref{fig:u_d} os dados obtidos para u na simulação e no sistema real respectivamente.
