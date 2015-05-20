@@ -199,10 +199,10 @@ Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculad
 
 Determinou-se que o sistema é controlável (a dimensão da matriz de controlabilidade é igual ao número de variáveis de estado).
 
-%\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade $\mathcal{C}$ e de %observabilidade $\mathcal{O}$. As variáveis {\it cntr} e {\it obsr} adquirem valores booleanos, que indicam se o sistema é %controlável e/ou observável, respectivamente. As funções {\it controlab} e {\it observab} apresentam-se em anexo em ficheiros com %o mesmo nome.}]
-%[C,cntr]=controlab(A,b);
-%[O,obsr]=observab(A,c);
-%\end{lstlisting}
+\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade $\mathcal{C}$ e de observabilidade $\mathcal{O}$. As variáveis {\it cntr} e {\it obsr} adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções {\it controlab} e {\it observab} apresentam-se em anexo em ficheiros com o mesmo nome.}]
+[C,cntr]=controlab(A,b);
+[O,obsr]=observab(A,c);
+\end{lstlisting}
 
 
 \section{Observabilidade}
@@ -429,20 +429,18 @@ A introdução de um filtro passa-baixo na referência irá eliminar as componen
 Os resultados obtidos para a saída do sistema e para a saída do controlador quando o sinal do extensómetro não é utilizado na realimentação apresentam-se nas figuras \ref{fig:y_next} e \ref{fig:u_next}.\\
 O sinal na saída do sistema é semelhante ao que foi obtido para o caso em que se implementou um filtro no extensómetro, visto que a eliminação do sinal do extensómetro na realimentação deverá ser equivalente ao caso limite em que o filtro deste corta todas as frequências.\\
 Em termos práticos, eliminação do sinal do extensómetro na realimentação significa que o sistema irá perder sensibilidade às variações do ângulo $\alpha$, visto que toda a informação que pode ser obtida acerca deste é a partir da actuação do potenciómetro devido à inércia da barra.
-<<<<<<< HEAD
 
-=======
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_0n/dados_0n_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema sem realimentação do extensómetro}
 \label{fig:y_next}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_0n/dados_0n_u.png}
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema sem realimentação do extensómetro}
 \label{fig:u_next}
 \end{figure}
->>>>>>> 970f05e... Adicionada parte sobre o processo experimental
+
 \section{Ensaios com outras especificações para os pólos do observador e/ou controlador}
 Ensaiou-se o sistema com outros vectores de ganho do controlador e do estimador de modo a obter comportamentos diferentes dos que foram ensaiados anteriormente.\\
 \subsection{Primeiro Ensaio}
@@ -462,12 +460,12 @@ E para os pólos do observador:
 É possível observar que o sinal que sai do controlador ($u$) varia de forma mais impulsiva que com os valores prórpios escolhidos anteriormente. Isto é uma consequência do afastamento dos pólos do observador, que o tornam mais rápido e que por isso induz mais volatilidade na saída do controlador.\\
 Na saída do sistema ($y$) não existem diferenças relevantes entre os dois sinais obtidos, pelo que se pode concluir que apesar de se aumentado a rapidez do observador (tornando-o mais sensível às variações de alta frequência), a mecânica do sistema já atingiu o limite para a rapidez de actuação máxima.\\
 Os dados obtidos para este ensaio estão representados nas figuras \ref{fig:y_pri} e \ref{fig:u_pri}.
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_a/dados_00_a_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no primeiro ensaio.}
 \label{fig:y_pri}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_a/dados_00_a_u.png}
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema no primeiro ensaio}
 \label{fig:u_pri}
@@ -489,12 +487,12 @@ Espera-se que devido aos pólos complexos do controlador projectado para este en
 Tal como previsto, o sinal induzido no motor pelo controlador possui uma característica ocilatória amortecida que tende para 0 (quando y tende para a referência).
 Quanto ao sinal de saída, devido à actuação do controlador, irá evoluir oscilatóriamente até atingir o valor imposto pela referência, devido novamente à implementação de um controlador com valores próprios complexos.
 Os dados obtidos para este ensaio estão representados nas figuras \ref{fig:y_seg} e \ref{fig:u_seg}.
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_c/dados_00_c_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no segundo ensaio.}
 \label{fig:y_seg}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_c/dados_00_c_u.png}
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema no primeiro ensaio}
 \label{fig:u_seg}
@@ -515,12 +513,12 @@ E para os pólos do observador:
 Visto que agora todos os pólos escolhidos para o controlador são complexos, espera-se que o sistema evolua para a estabildade com uma caracterísitica oscilatória amortecida, mas  ao contrário do caso anterior em que apenas metade dos valores próprios do controlador eram complexos, espera-se que haja uma presença mais acentuada do regime oscilatório.\\
 Tal pode ser verificado no gráfico da figura \ref{fig:y_e}, em que se observa claramente que a saída do sistema tende para uma oscilação em torno do valor que anula a referência.\\
 Este comportamento também pode ser observado na figura \ref{fig:u_e}, onde claramente a amplitude do sinal u, ao contrário dos casos onde não se tem pólos complexos em que u tende exponencialmente para a estabilidade, neste caso u tende para a estabilidade através de um comportamento oscilatório exxponencialmente amortecido, justifica o comportamento do sinal de saída.
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_e/dados_00_e_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no terceiro ensaio.}
 \label{fig:y_e}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_e/dados_00_e_u.png}
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema no terceiro ensaio}
 \label{fig:u_e}
@@ -540,12 +538,12 @@ E para os pólos do observador:
 \end{equation}
 Realizou-se este ensaio para tentar perceber qual seria o efeito de aplicar pólos complexos ao observador. Através de uma simulação em Simulink, esperava-se que não existem diferenças relevantes entre este ensaio e o primeiro ensaio.\\
 Após realizar o ensaio, cujos gráficos estão representados nas figuras \ref{fig:y_f} e \ref{fig:u_f}, é possivel observar que os resultados obtidos são praticamente iguais aos observados no primeiro ensaio, o que significa que os valores próprios utilizados para o observador no primeiro ensaio são menores em módulo que os que foram utilizados neste ensaio e apenas vieram amplificar a resposta em alta frequência do observador e consequentemente a sua rapidez.
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_f/dados_00_f_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no terceiro ensaio.}
 \label{fig:y_f}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_f/dados_00_f_u.png}
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema no terceiro ensaio}
 \label{fig:u_f}
@@ -566,17 +564,17 @@ Utilizou-se para os pólos do observador:
 \end{equation}
 Apesar de os resultados da simulação apontarem para um regime com pouca oscilação, o comportamento obtido foi um regime altamente oscilatório e impulsivo, como pode ser observado nas figuras \ref{fig:y_g} e \ref{fig:u_g}.
 Analisando o erro deste ensaio (a entrada do controlador), observa-se que o sistema está a tender no sentido de minimizar o erro (figura \ref{fig:erro}), apesar do seu comportamento altamente oscilatório.
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_g/dados_00_g_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no terceiro ensaio.}
 \label{fig:y_f}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_g/dados_00_g_u.png}
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema no terceiro ensaio}
 \label{fig:u_f}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=2.5in]{../imgs/dados_00_g/dados_00_g_err.png}
 \caption{Dados obtidos para o erro na entada do controlador do sistema no terceiro ensaio}
 \label{fig:erro}
