@@ -316,7 +316,7 @@ Os resultados da simulação apresentam-se nos gráficos das figuras \ref{../img
 \section{Função de transferência em cadeira fechada}
 %Determinou-se o diagrama de Bode do sistema em cadeia fechada. 
 \label{CF}	
-A união entre o modelo em cadeia aberta e o estimador que irão formar o sistema em cadeia fechada é realizada pela função {\it ligacao} como se apresenta em \rlis{lis3}, que recebe como argumentos as matrizes do sistema em malha aberta e do estimador e retorna uma variável em formato sys que descreve o sistema (representado em espaço de estados) como representado no esquema de {\it simulink}.
+A união entre o modelo em cadeia aberta e o estimador que irão formar o sistema em cadeia fechada é realizada pela função {\it ligacao} como se apresenta em \rlis{list3}, que recebe como argumentos as matrizes do sistema em malha aberta e do estimador e retorna uma variável em formato sys que descreve o sistema (representado em espaço de estados) como representado no esquema de {\it simulink}.
 
 \fig{../img/BodeMalhaFechada.png}{Diagrama de Bode do sistema em cadeira fechada}
 
@@ -324,7 +324,7 @@ A união entre o modelo em cadeia aberta e o estimador que irão formar o sistem
 sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
 \end{lstlisting}
 
-
+Pela análise do diagrama de Bode do sistema em cadeia fechada conclui-se 
 
 
 \section{Ensaio com o sistema real}
@@ -397,7 +397,7 @@ E para os pólos do observador:
 % % % % % % % % % % % % % % % %     FIM    % % % % % % % % % % % % % % % % % % % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\nocite{}
+\nocite{*}
 \bibliography{bibliografia}{}
 \bibliographystyle{plain}% Produces the bibliography via BibTeX.
 \end{document}
