@@ -233,11 +233,7 @@ Determinou-se que o sistema é observável (a dimensão da matriz de observabili
 
 Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é possível concluir que o sistema possui 4 pólos, tal como esperado. O motor DC introduz dois pólos reais\cite{dcmotor} e a barra dois pólos complexos conjugados, característicos de um movimento oscilatório amortecido.
 
-Calcularam-se os valores próprios da matriz A, que correspondem aos pólos do sistema em cadeia aberta, que se apresentam na tabela \ref{tab1} e estão representados na \rfig{../img/BodeMalhaAberta.png}.
-Como se pode observar, um dos pólos reais está na origem e o restante tem módulo bastante próximo do dos dois pólos complexos conjugados. O efeito destes é assim essencialmente conjunto.
-\par Verifica-se no digrama de Bode que, para cerca de 4Hz dá-se uma variação de fase de -270º devida aos três pólos, que em conjunto com os -90º devidos ao pólo na origem, prefaz a diferença de fase de -360º para grandes valores de frequência. Do mesmo modo, para a amplitude observa-se um declive inicial de -20dB devido ao pólo na origem e um aumento deste em -60dB em cerca de 4Hz, prefazendo um declive de -80dB para grandes valores de frequência.
-
-Tem-se assim que a resposta do sistema se dá para baixas frequências, apresentando atenuações superiores a 60dB para frequências superiores a 10Hz.
+Calcularam-se os valores próprios da matriz A, que correspondem aos pólos do sistema em cadeia aberta, que se apresentam na tabela \ref{tab1} e estão representados na \rfig{../img/OpenZeroPole.png}.
 
 \tabela[tab1]{Pólos do sistema em cadeia aberta (valores própios da matriz A)}{ccc}
 {
@@ -253,6 +249,12 @@ $ -22.1969 + 0.0000i$	&$22.1969$	&$3.5327$
 }
 
 \fig{../img/OpenZeroPole.png}{Pólos do sistema em cadeia aberta, respresentados no plano complexo.}
+
+Como se pode observar, um dos pólos reais está na origem e o restante tem módulo bastante próximo do dos dois pólos complexos conjugados. O efeito destes é assim essencialmente conjunto.
+\par Verifica-se no digrama de Bode que, para cerca de 4Hz dá-se uma variação de fase de -270º devida aos três pólos, que em conjunto com os -90º devidos ao pólo na origem, prefaz a diferença de fase de -360º para grandes valores de frequência. Do mesmo modo, para a amplitude observa-se um declive inicial de -20dB devido ao pólo na origem e um aumento deste em -60dB em cerca de 4Hz, prefazendo um declive de -80dB para grandes valores de frequência.
+
+Tem-se assim que a resposta do sistema se dá para baixas frequências, apresentando atenuações superiores a 60dB para frequências superiores a 10Hz.
+
 
 \par Ainda relativamente ao sistema em malha aberta e devido a discussão com o professor na aula de laboratório, construiu-se o  gráfico da \rfig{../img/OpenRootLocus.png}, recorrendo à função \verb+rlocus()+ do Matlab.
 
@@ -353,9 +355,14 @@ PeakTime(s)		&		1.1587
 sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
 \end{lstlisting}
 
-Pela análise do diagrama de Bode do sistema em cadeia fechada conclui-se 
 
-ADICIONAR COMENTÁRIOS SOBRE ESTES PARÂMETROS
+\par Relativamente a estes parâmetros pode desde já salientar-se a ausência de {\it OverShoot} na resposta, não havendo oscilação entre o valor final.Isto pode indicar um factor de amortecimento perto de 1. Ainda assim o Undershoot é de cerca de 45 \%. Relativamente ao Rise Time e ao Settling Time estes valores são bastante aceitáveis, embora o settling time seja um pouco elevado.
+
+
+
+\par Os pólos e zeros do sistema em malha fechada apresentam-se na tabela \ref{tab2} e podem ser observados\footnote{De notar que os símbolos dos pólos a azul mais carregado representam pólos duplos} na \rfig{../img/ClosedZeroPole.png}. 
+
+\fig{../img/ClosedZeroPole.png}{Pólos e zeros do sistema em malha fechada no plano complexo.}
 
 \tabela[tab2]{Pólos e zeros do sistema em cadeia fechada}{ccc}
 {
@@ -378,10 +385,6 @@ $9.1309$	&$9.1309$	&$1.4532$
 
 }
 
-\par PARA ADICIONAR AO QUE VIER RELATIVO A ESTA PARTE
-\par Os pólos e zeros do sistema em malha fechada podem ser observados\footnote{De notar que os símbolos dos pólos a azul mais carregado representam pólos duplos} na \rfig{../img/ClosedZeroPole.png}. 
-
-\fig{../img/ClosedZeroPole.png}{Pólos e zeros do sistema em malha fechada no plano complexo.}
 \par Ainda relativamente à temática do \textit{root locus} foi construído o gráfico da \rfig{../img/ClosedRootLocus.png}, por forma a poder visualizar o que acontecece ao sistem caso se variasse o ganho e por forma a interiozar novos conceitos, dados que não somos alunos de Electrotécnica.
 
 \fig{../img/ClosedRootLocus.png}{\textit{Root Locus} do sistema em malha fechada.}
