@@ -1,6 +1,6 @@
 clear;
 
-str='dados_00';
+str='dados_0n';
 
 dat=importdata(strcat(str,'.txt'));
 
