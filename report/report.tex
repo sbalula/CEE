@@ -287,7 +287,9 @@ Determinaram-se assim os ganhos que se apresentam em \eqref{ganhoK} e \eqref{gan
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
 \end{lstlisting}
 \subsection{Verificação com teorema de separação}
+
 O teorema da separação permite que o controlador e observador sejam dimensionados separamente, já que o polinómio característico do sistema global pode ser escrito como o produto dos polinómios característicos do controlador \eqref{polc} e observador \eqref{polo}.
+
 Realizando numericamente estas expressões obtêm-se os valores próprios, que se verificam corresponder aos requeridos, e que por serem numericamente iguais a estes aqui se omitem.
 
 \eq[polc]{det(sI-A+bK) = 0}
@@ -318,6 +320,7 @@ Os resultados da simulação apresentam-se nos gráficos das figuras \ref{fig:y_
 \section{Função de transferência em cadeira fechada}
 %Determinou-se o diagrama de Bode do sistema em cadeia fechada. 
 \label{CF}	
+
 A união entre o modelo em cadeia aberta e o estimador que irão formar o sistema em cadeia fechada é realizada pela função {\it ligacao} como se apresenta em \rlis{list3}, que recebe como argumentos as matrizes do sistema em malha aberta e do estimador e retorna uma variável em formato sys que descreve o sistema (representado em espaço de estados) como representado no esquema de {\it simulink}.
 
 \fig{../img/BodeMalhaFechada.png}{Diagrama de Bode do sistema em cadeira fechada.}
@@ -381,9 +384,10 @@ Já para a diferença de fase, dado existirem 8 pólos e 3 zeros, esperava-se qu
 \par Ainda relativamente à temática do \textit{root locus} foi construído o gráfico da \rfig{../img/ClosedRootLocus.png}, por forma a poder visualizar o que acontecece ao sistema caso se variasse o ganho.
 \fig{../img/ClosedRootLocus.png}{\textit{Root Locus} do sistema em malha fechada.}
 
-Neste gráfico observa-se o típico comportamento dos zeros - não são afectados pelo ganho, pelo que permanecem estáticos. Podem também observar-se trajectórias de quatro pólos que cruzam o eixo imaginário, pelo que, puxando pelo ganho, facilmente se tornam estes instáveis. 
+Neste gráfico observa-se o típico comportamento dos zeros - não são afectados pelo ganho, pelo que permanecem estáticos. Podem também observar-se trajectórias de quatro pólos que cruzam o eixo imaginário, pelo que, aumentando o ganho facilmente se tornam estes instáveis. 
 
 \section{Ensaio com o sistema real}
+
 Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos para o observador assimptótico e para o controlador, e observou-se a resposta do sistema real (a barra cujo ângulo $\theta$ é medido através do potenciómetro e o ângulo de $\alpha$ é medido através do extensómetro). Apresentam-se nas figuras \ref{fig:y_t} e \ref{fig:y_d} os dados obtidos para y na simulação e com o sistema real respectivamente e nas figuras \ref{fig:u_t} e \ref{fig:u_d} os dados obtidos para u na simulação e no sistema real respectivamente.
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../img/y.png}
@@ -405,10 +409,13 @@ Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos 
 \caption{Dados obtidos para $u(t)$ com o sistema real}
 \label{fig:u_d}
 \end{figure}
+
 Quanto à saída obtida observa-se que, apesar de ser muito semelhante à saída obtida através da simulação computacional, na simulação o valor de y tende para valores bem determinados de amplitude sempre que se varia a referência (neste caso, a referência é uma onda quadrada com um período de $T=5$s), enquanto que no sistema real é possivel notar a existência de uma pequena oscilação em torno dos valores onde a barra se deveria encontrar estática. Isto siginfica que quando a barra deveria estar parada, a sua ponta ainda vibra, mesmo que pouco. Tal pode dever-se à zona morta do motor utilizado, visto que o controlador já não consegue fornecer energia suficiente para que o motor actue na barra de modo a esta ficar perfeitamente imóvel.\\
+
 Também comparando os resultados obtidos para u, é possível confirmar a perturbação da zona morta do motor visto que este valor, que é o sinal que actua sobre o motor,  na simulação tende para 0 suavemente, enquanto que na prática u varia impulsivamente, o que é uma tentativa do controlador de estabilizar a ponta da barra. Quando o valor obtido para a ponta da barra finalmente se aproxima ao valor na referência, o controlador continua a enviar um sinal ao motor para que este actue de modo a anular as vibrações na barra, no entanto como este não responde, o controlador continua a enviar um sinal u diferente de 0 para actuar o motor, como se vê na figura \ref{fig:u_d}, enquanto que para um sistema perfeito, como é o caso da figura \ref{fig:u_t}, o sinal u vai tender assimptoticamente para 0.
 
 \section{Resposta sem filtro na saída}
+
 Anulando o filtro no sinal do extensómetro através do esquema de {\it simulink}, obtive-se o sinal $u$ e $y$ representados nas figuras \ref{fig:u_00} e \ref{fig:y_00} respectivamente.\\
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00/dados_00_y.png}
@@ -425,7 +432,9 @@ Nota-se imediatamente que os sinais obtidos são agora mais parecidos com as sim
 É de notar que, de modo semelhante ao que pode ser observado nos resultados da secção anterior, o sinal $u$ nunca chega a ir exactamente para 0 como é observado na simulação, visto que chega a um ponto que o sinal enviado para corrigir a posição do motor não é suficiente para que este actue, o que resulta num erro na entrada do controlador e consequentemente num sinal $u$ à saída deste diferente de 0.
 
 \section{Efeito da variação do polo do pré-filtro}
+
 A introdução de um filtro passa-baixo na referência irá eliminar as componentes de alta frequência deste sinal, que neste caso, se escolheu ser uma onda quadrada com frequência $f=0.2$Hz. Visto que a onda quadrada varia muito rapidamente, passando quase instantaneamente do seu valor máximo para o seu valor mínimo a cada meio período, isto leva a um comportamento muito impulsivo do sistema (e consequentemente da estrutura de controlo). A filtragem da referência leva a uma suavização deste sinal, resultanto num comportamento mais suave do sistema.\\
+
 Como é possivel observar nas figuras \ref{fig:pf_y}, \ref{fig:pf_u}, \ref{fig:pf_ref}, à medida que se diminui o valor da variável wndf, vai-se deslocando o pólo deste filtro cada vez mais para a esquerda, sendo que quando wndf=0, o filtro filtra todas as frequências (sendo a referência 0 para qualquer t). Esta filtragem irá eliminar as altas frequências do sinal de entrada, que estimulam um comportamento muito rápido do sistema, o que implica que quanto menor for a frequência de corte, maior será a suavidade com que o sistema vai tender para a estabilidade.
 \begin{figure}[t]
 \includegraphics[width=3.5in]{../img/y_filtro.png}
@@ -442,13 +451,17 @@ Como é possivel observar nas figuras \ref{fig:pf_y}, \ref{fig:pf_u}, \ref{fig:p
 \caption{Dados obtidos para de referência ($r$) do sistema real com vários valores da variável wndf.}
 \label{fig:pf_ref}
 \end{figure}
+
 É de realçar que quando o sistema funciona neste regime está-se a atrasar a resposta do sistema face a uma variação externa em troca da sua estabilidade e suavidade. Logo, caso se queira determinar os limites do controlador implementado, não é favorável a implementação de um pré-filtro, da mesma maneira que caso o sistema fosse implementado num sistema comercial, já seria favorável a implementação deste filtro, de modo a conservar os equipamentos controlados.
 
 \section{Ensaio sem sinal do extensómetro}
+
 Os resultados obtidos para a saída do sistema e para a saída do controlador quando o sinal do extensómetro não é utilizado na realimentação apresentam-se nas figuras \ref{fig:y_next} e \ref{fig:u_next}.\\
+
 O sinal na saída do sistema é semelhante ao que foi obtido para o caso em que se implementou um filtro no extensómetro, visto que a eliminação do sinal do extensómetro na realimentação deverá ser equivalente ao caso limite em que o filtro deste corta todas as frequências.\\
 
 Em termos práticos, eliminação do sinal do extensómetro na realimentação significa que o sistema irá perder sensibilidade às variações do ângulo $\alpha$, visto que toda a informação que pode ser obtida acerca deste é origina da actuação do potenciómetro devido à inércia da barra.
+
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_0n/dados_0n_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema sem realimentação do extensómetro}
@@ -462,8 +475,11 @@ Em termos práticos, eliminação do sinal do extensómetro na realimentação s
 
 \section{Ensaios com outras especificações para os pólos do observador e/ou controlador}
 Ensaiou-se o sistema com outros vectores de ganho do controlador e do estimador de modo a obter comportamentos diferentes dos que foram ensaiados anteriormente.\\
+
 \subsection{Primeiro Ensaio}
+
 Utilizou-se para os pólos do controlador:
+
 \begin{equation}
 \begin{bmatrix}
 -70 & -70  & -10 &-10
@@ -475,10 +491,14 @@ E para os pólos do observador:
 -75 & -75  & -45 &-45
 \end{bmatrix}
 \end{equation}
+
 É expectável que com estes pólos se induza um comportamento mais rápido no observador assimptótico, visto que se está a afastar os seus pólos para frequências mais altas comparativamente com o caso analisado nas outras secções.\\
 É possível observar que o sinal que sai do controlador ($u$) varia de forma mais impulsiva que com os valores prórpios escolhidos anteriormente. Isto é uma consequência do afastamento dos pólos do observador, que o tornam mais rápido e que por isso induz volatilidade na saída do controlador.\\
+
 Na saída do sistema ($y$) não existem diferenças relevantes entre os dois sinais obtidos, pelo que se pode concluir que apesar de se aumentado a rapidez do observador (tornando-o mais sensível às variações de alta frequência), a mecânica do sistema já atingiu o limite para a rapidez de actuação máxima.\\
+
 Os dados obtidos para este ensaio estão representados nas figuras \ref{fig:y_pri} e \ref{fig:u_pri}.
+
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00_a/dados_00_a_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no primeiro ensaio.}
@@ -489,7 +509,9 @@ Os dados obtidos para este ensaio estão representados nas figuras \ref{fig:y_pr
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema no primeiro ensaio}
 \label{fig:u_pri}
 \end{figure}
+
 \subsection{Segundo Ensaio}
+
 Utilizou-se para os pólos do controlador:
 \begin{equation}
 \begin{bmatrix}
@@ -502,10 +524,15 @@ E para os pólos do observador:
 -50 & -50  & -30 &-30
 \end{bmatrix}
 \end{equation}
+
 Espera-se que devido aos pólos complexos do controlador projectado para este ensaio o sinal de actuação varie com uma característica oscilatória amortecida até um certo ponto de estabilidade (onde a saída se anula com a referência).\\
+
 Tal como previsto, o sinal induzido no motor pelo controlador possui uma característica ocilatória amortecida que tende para 0 (quando y tende para a referência).
+
 Quanto ao sinal de saída, devido à actuação do controlador, irá evoluir oscilatóriamente até atingir o valor imposto pela referência, devido novamente à implementação de um controlador com valores próprios complexos.
+
 Os dados obtidos para este ensaio estão representados nas figuras \ref{fig:y_seg} e \ref{fig:u_seg}.
+
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00_c/dados_00_c_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no segundo ensaio.}
@@ -517,21 +544,27 @@ Os dados obtidos para este ensaio estão representados nas figuras \ref{fig:y_se
 \label{fig:u_seg}
 \end{figure}
 \subsection{Terceiro ensaio}
+
 Utilizou-se para os pólos do controlador:
 \begin{equation}
 \begin{bmatrix}
 -20+80i & -20-80i  & -1+5i &-1+5i
 \end{bmatrix}
 \end{equation}
+
 E para os pólos do observador:
 \begin{equation}
 \begin{bmatrix}
 -50 & -50  & -30 &-30
 \end{bmatrix}
 \end{equation}
+
 Visto que agora todos os pólos escolhidos para o controlador são complexos, espera-se que o sistema evolua para a estabildade com uma caracterísitica oscilatória amortecida, mas  ao contrário do caso anterior em que apenas metade dos valores próprios do controlador eram complexos, espera-se que haja uma presença mais acentuada do regime oscilatório.\\
+
 Tal pode ser verificado no gráfico da figura \ref{fig:y_e}, em que se observa claramente que a saída do sistema tende para uma oscilação em torno do valor que anula a referência.\\
+
 Este comportamento também pode ser observado na figura \ref{fig:u_e}, onde claramente a amplitude do sinal u, ao contrário dos casos onde não se tem pólos complexos em que u tende exponencialmente para a estabilidade, neste caso u tende para a estabilidade através de um comportamento oscilatório exxponencialmente amortecido, justifica o comportamento do sinal de saída.
+
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00_e/dados_00_e_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no terceiro ensaio.}
@@ -543,20 +576,27 @@ Este comportamento também pode ser observado na figura \ref{fig:u_e}, onde clar
 \label{fig:u_e}
 \end{figure}
 \subsection{Quarto ensaio}
+
 Utilizou-se para os pólos de controlador:
+
 \begin{equation}
 \begin{bmatrix}
 -70 & -20 & -10 &-10
 \end{bmatrix}
 \end{equation}
+
 E para os pólos do observador:
+
 \begin{equation}
 \begin{bmatrix}
 -50 & -50 & -30+40i &-30-40i
 \end{bmatrix}
 \end{equation}
+
 Realizou-se este ensaio para tentar perceber qual seria o efeito de aplicar pólos complexos ao observador. Através de uma simulação em {\it simulink}, esperava-se que não existem diferenças relevantes entre este ensaio e o primeiro ensaio.\\
+
 Após realizar o ensaio, cujos gráficos estão representados nas figuras \ref{fig:y_f} e \ref{fig:u_f}, é possivel observar que os resultados obtidos são praticamente iguais aos observados no primeiro ensaio, o que significa que os valores próprios utilizados para o observador no primeiro ensaio são menores em módulo que os que foram utilizados neste ensaio e apenas vieram amplificar a resposta em alta frequência do observador e consequentemente a sua rapidez.
+
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00_f/dados_00_f_y.png}
 \caption{Dados obtidos para a saída ($y$) do sistema no terceiro ensaio.}
@@ -567,14 +607,19 @@ Após realizar o ensaio, cujos gráficos estão representados nas figuras \ref{f
 \caption{Dados obtidos para o sinal de actuação ($u$) do sistema no terceiro ensaio}
 \label{fig:u_f}
 \end{figure}
+
 \subsection{Quinto ensaio}
+
 Foi realizado um último ensaio para apurar qual seria o efeito de colocar todos os pólos, quer do controlador como do observador, como complexos.\\
+
 Utilizou-se para os pólos do controlador:
+
 \begin{equation}
 \begin{bmatrix}
 -70+40i & -70-40i & -10+10i &-10-10i
 \end{bmatrix}
 \end{equation}
+
 Utilizou-se para os pólos do observador:
 \begin{equation}
 \begin{bmatrix}
@@ -601,14 +646,19 @@ Analisando o erro deste ensaio (a entrada do controlador), observa-se que o sist
 \label{fig:erro}
 \end{figure}
 \label{s:conclu}
+
 \section{Conclusões e Críticas}
+
 Como foi referido na comparação do sistema real com o sistema ideal simulado, para a escala de tempo utilizada, o factor que mais contribuiu para o comportamento não ideal do sistema real foi o desvio que se observou no sinal de actuação do sistema (que tende para 0 na simulação mas não tende para 0 quando se ensaio o sistema real). Como foi referido no relatório, tal se deve à zona morta do motor, isto é, a zona em que o sinal de actuação não é suficientemente forte para induzir no motor uma acção mecânica. Isto signfica que o erro (entrada do controlador implementado) irá induzir no controlador uma saída diferente de 0 de modo a actuar o motor para que este se aproxime da referência, no entanto como este sinal de actuação não é suficiente para actuar o motoro erro permanece contante (porque a barra não se move).\\
+
 Propõem-se duas soluções para melhorar o controlador implementado de modo a eliminar este efeito:
 \begin{itemize}
 \item A utilização de um motor mais sensível
 \item A implementação de um efeito integral na entrada do controlador.
 \end{itemize}
+
 No primeiro caso, a substituição por um motor mais sensível iria minimizar a zona morta do motor, pelo que seria possivel obter um erro menor visto que se conseguia actuar mecanicamente o motor par avalor mais baixos do sinal de actuação. No entanto isto iria implicar a aquisição um motor mais caro.\\
+
 No segundo caso a implementação do efeito integral implicaria que a entrada do controlador deixaria de ser o erro para passar a ser uma integração do erro o que significa que quando o erro passasse a ser tão pequeno que o controlador não conseguiria induzir um sinal forte o suficiente para actuar o motor, o erro permaneciria constante mas a entrada do controlador aumentaria (ou diminuiria) linearmente com o tempo, o que implica que ao fim de alguns instantes o sinal na entrada do controlador seria o suficiente para que a saída deste actuasse mecanicamente o motor, corrigindo novamente a posição da barra sendo que o sistema iria finalmente estabilizar quando o erro fosse tão pequeno que somente passado um grande intervalo de tempo a entrada do controlador fosse grande o suficiente para que este actuasse o motor.
 %Incluir melhorias propostas à experiência
 
