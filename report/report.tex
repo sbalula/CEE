@@ -90,7 +90,7 @@ includefoot
 %\titlespacing{\subsection}{0pt}{*0}{*0}
 %\titlespacing{\subsubsection}{0pt}{*0}{*0}
 
-\lstset{language=Matlab,%
+\lstset{language=matlab,%
     %basicstyle=\color{red},
 	belowcaptionskip=1\baselineskip,
 	frame=L,
@@ -180,7 +180,7 @@ De acordo com as informações dadas no enunciado, tomando como vector de estado
 	\end{bmatrix}
 }
 
-Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculada em {\it Matlab} como se descreve em \rlis{list1}.
+Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculada em {\it matlab} como se descreve em \rlis{list1}.
 
 \eq[contr]{\begin{array}{rcl}
 		\mathcal{C} &= &
@@ -197,16 +197,16 @@ Pode assim escrever-se a matrix de controlabilidade como \eqref{contr}, calculad
 	\end{array}
 }
 
-Determinou-se que o sistema é controlável (a dimensão da matriz de controlabilidade é igual ao número de variáveis de estado).
+Determinou-se que o sistema é controlável (a característica da matriz de controlabilidade é igual ao número de variáveis de estado).
 
-\begin{lstlisting}[label=list1, caption={Código Matlab para o cálculo da matrix de controlabilidade $\mathcal{C}$ e de observabilidade $\mathcal{O}$. As variáveis {\it cntr} e {\it obsr} adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções {\it controlab} e {\it observab} apresentam-se em anexo em ficheiros com o mesmo nome.}]
+\begin{lstlisting}[label=list1, caption={Código {\it matlab} para o cálculo da matrix de controlabilidade $\mathcal{C}$ e de observabilidade $\mathcal{O}$. As variáveis {\it cntr} e {\it obsr} adquirem valores booleanos, que indicam se o sistema é controlável e/ou observável, respectivamente. As funções {\it controlab} e {\it observab} apresentam-se em anexo em ficheiros com o mesmo nome.}]
 [C,cntr]=controlab(A,b);
 [O,obsr]=observab(A,c);
 \end{lstlisting}
 
 
 \section{Observabilidade}
-A matrix de observabilidade é dada por \eqref{obsr}, calculada em {\it Matlab} como se descreve em \rlis{list1}.
+A matrix de observabilidade é dada por \eqref{obsr}, calculada em {\it matlab} como se descreve em \rlis{list1}.
 
 
 \eq[obsr]{\begin{array}{rcl}
@@ -226,7 +226,7 @@ A matrix de observabilidade é dada por \eqref{obsr}, calculada em {\it Matlab} 
 		\end{bmatrix}
 	\end{array}
 }
-Determinou-se que o sistema é observável (a dimensão da matriz de observabilidade é igual ao número de variáveis de estado).
+Determinou-se que o sistema é observável (a característica da matriz de observabilidade é igual ao número de variáveis de estado).
 
 \section{Diagrama de Bode}
 \fig{../img/BodeMalhaAberta.png}{Diagrama de Bode do sistema em cadeira aberta}
@@ -236,7 +236,7 @@ Através do diagrama de Bode da \rfig{../img/BodeMalhaAberta.png} é possível c
 Calcularam-se os valores próprios da matriz A, que correspondem aos pólos do sistema em cadeia aberta, que se apresentam na tabela \ref{tab1} e estão representados na \rfig{../img/OpenZeroPole.png}.
 
 Como se pode observar, um dos pólos reais está na origem e o restante tem módulo bastante próximo do dos dois pólos complexos conjugados. O efeito destes é assim essencialmente conjunto.
-\par Verifica-se no digrama de Bode que, para cerca de 4Hz dá-se uma variação de fase de -270º devida aos três pólos, que em conjunto com os -90º devidos ao pólo na origem, prefaz a diferença de fase de -360º para grandes valores de frequência. Do mesmo modo, para a amplitude observa-se um declive inicial de -20dB devido ao pólo na origem e um aumento deste em -60dB em cerca de 4Hz, prefazendo um declive de -80dB para grandes valores de frequência.
+\par Verifica-se no digrama de Bode que, para cerca de 4Hz dá-se uma variação de fase de -270º devida aos três pólos, que em conjunto com os -90º devidos ao pólo na origem, prefaz a diferença de fase de -360º para grandes valores de frequência. Do mesmo modo, para a amplitude observa-se um declive inicial de -20dB por década devido ao pólo na origem e um aumento deste em -60dB em cerca de 4Hz, prefazendo um declive de -80dB por década para grandes valores de frequência.
 
 Tem-se assim que a resposta do sistema se dá para baixas frequências, apresentando atenuações superiores a 60dB para frequências superiores a 10Hz.
 
@@ -255,7 +255,7 @@ $ -22.1969 + 0.0000i$	&$22.1969$	&$3.5327$
 
 \fig{../img/OpenZeroPole.png}{Pólos do sistema em cadeia aberta, respresentados no plano complexo.}
 
-\par Ainda relativamente ao sistema em malha aberta e construiu-se o gráfico da \rfig{../img/OpenRootLocus.png}, recorrendo à função \verb+rlocus()+ do Matlab.
+\par Ainda relativamente ao sistema em malha aberta e construiu-se o gráfico da \rfig{../img/OpenRootLocus.png}, recorrendo à função \verb+rlocus()+ do {\it matlab}.
 
 \fig{../img/OpenRootLocus.png}{\textit{Root Locus} do sistema em malha aberta.}
 
@@ -283,7 +283,7 @@ Determinaram-se assim os ganhos que se apresentam em \eqref{ganhoK} e \eqref{gan
 	\end{bmatrix}
 	}
 
-\begin{lstlisting}[label=list2, caption={Código Matlab para o cálculo dos ganhos $K$ do controlador e $L$ do observador a partir das matrizes de controlabilidade $\mathcal{C}$, observabilidade $\mathcal{O}$ e da dinâmica $A$, e os valores próprios desejados para o controlador $vpp\_C$ e observador $vpp\_O$. A função {\it ganhos} apresenta-se em anexo no ficheiro com o mesmo nome.}]
+\begin{lstlisting}[label=list2, caption={Código {\it matlab} para o cálculo dos ganhos $K$ do controlador e $L$ do observador a partir das matrizes de controlabilidade $\mathcal{C}$, observabilidade $\mathcal{O}$ e da dinâmica $A$, e os valores próprios desejados para o controlador $vpp\_C$ e observador $vpp\_O$. A função {\it ganhos} apresenta-se em anexo no ficheiro com o mesmo nome.}]
 [K,L]=ganhos(C,vpp_C,O,vpp_O,A);
 \end{lstlisting}
 \subsection{Verificação com teorema de separação}
@@ -313,11 +313,7 @@ Apresenta-se na \rfig{../img/simulink.png} o diagrama da simulação efectuada e
 		D_p = 0
 	\end{cases}
 }
-
-\fig{../img/y.png}{Saída do sistema simulado}
-\fig{../img/u.png}{Estímulo do sistema simulado}
-
-Os resultados da simulação apresentam-se nos gráficos das figuras \ref{../img/y.png} e \ref{../img/u.png} para os quais a referência é uma onda quadrada de amplitude unitária e período $5s$.
+Os resultados da simulação apresentam-se nos gráficos das figuras \ref{fig:y_t} e \ref{fig:u_t} para os quais a referência é uma onda quadrada de amplitude unitária e período $5s$.
 
 \section{Função de transferência em cadeira fechada}
 %Determinou-se o diagrama de Bode do sistema em cadeia fechada. 
@@ -326,7 +322,7 @@ A união entre o modelo em cadeia aberta e o estimador que irão formar o sistem
 
 \fig{../img/BodeMalhaFechada.png}{Diagrama de Bode do sistema em cadeira fechada.}
 
-\par Foi também estudada, com o auxílio da função \verb+step()+ do Matlab, a resposta à função escalão unitário, ou de Heaviside, do sistema em malha fechada, que se pode analisar na \rfig{../img/ClosedStepResponse.png}. Recorreu-se ainda à função \verb+stepinfo()+ para obter mais informações, que estão condensadas na tabela \ref{tab_stepinfo}.
+\par Foi também estudada, com o auxílio da função \verb+step()+ do {\it matlab}, a resposta à função escalão unitário, ou de Heaviside, do sistema em malha fechada, que se pode analisar na \rfig{../img/ClosedStepResponse.png}. Recorreu-se ainda à função \verb+stepinfo()+ para obter mais informações, que estão condensadas na tabela \ref{tab_stepinfo}.
 
 
 \fig{../img/ClosedStepResponse.png}{Resposta temporal do sistema em malha fechada à função de Heaviside.}
@@ -345,7 +341,7 @@ Peak			&		0.9990	\\
 PeakTime(s)		&		1.1587
 }
 
-\begin{lstlisting}[label=list3, caption={Código Matlab para a obtensão do sistema em cadeira fechada. A função {\it ligacao} apresenta-se em anexo no ficheiro com o mesmo nome.}]
+\begin{lstlisting}[label=list3, caption={Código {\it matlab} para a obtensão do sistema em cadeira fechada. A função {\it ligacao} apresenta-se em anexo no ficheiro com o mesmo nome.}]
 sys_ss=ligacao(A,b,c,A-b*K-L*c,-L,-K);
 \end{lstlisting}
 
@@ -378,9 +374,11 @@ $-32.2676$	&$46.8164$	&$7.4511$	\\
 $-22.1688$	&$22.0967$	&$3.5168$	\\
 $4.5284$	&$9.1309$	&$1.4532$	
 }
+De acordo com os valores da tabela e pela análise da função de transferência, verifica-se que para baixas frequências a resposta do sitema não é atenuada, como acontecia no sitema em malha aberto, devido ao cancelamento dos pólos pelos zeros próximos. Para grandes valores de frequência (acima de 12 Hz) a amplitude cai a -100dB por década.
 
-\par Ainda relativamente à temática do \textit{root locus} foi construído o gráfico da \rfig{../img/ClosedRootLocus.png}, por forma a poder visualizar o que acontecece ao sistem caso se variasse o ganho e por forma a interiozar novos conceitos, dados que não somos alunos de Electrotécnica.
+Já para a diferença de fase, dado existirem 8 pólos e 3 zeros, esperava-se que para grandes frequências esta fosse de -450º. Não é contudo este o caso. Não nos foi possível obter uma explicação lógica para este gráfico.
 
+\par Ainda relativamente à temática do \textit{root locus} foi construído o gráfico da \rfig{../img/ClosedRootLocus.png}, por forma a poder visualizar o que acontecece ao sistema caso se variasse o ganho.
 \fig{../img/ClosedRootLocus.png}{\textit{Root Locus} do sistema em malha fechada.}
 
 Neste gráfico observa-se o típico comportamento dos zeros - não são afectados pelo ganho, pelo que permanecem estáticos. Podem também observar-se trajectórias de quatro pólos que cruzam o eixo imaginário, pelo que, puxando pelo ganho, facilmente se tornam estes instáveis. 
@@ -389,7 +387,7 @@ Neste gráfico observa-se o típico comportamento dos zeros - não são afectado
 Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos para o observador assimptótico e para o controlador, e observou-se a resposta do sistema real (a barra cujo ângulo $\theta$ é medido através do potenciómetro e o ângulo de $\alpha$ é medido através do extensómetro). Apresentam-se nas figuras \ref{fig:y_t} e \ref{fig:y_d} os dados obtidos para y na simulação e com o sistema real respectivamente e nas figuras \ref{fig:u_t} e \ref{fig:u_d} os dados obtidos para u na simulação e no sistema real respectivamente.
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../img/y.png}
-\caption{Dados obtidos por Simulink para a variação da saída $(y(t))$ com o tempo}
+\caption{Dados obtidos por {\it simulink} para a variação da saída $(y(t))$ com o tempo}
 \label{fig:y_t}
 \end{figure}
 \begin{figure}[t]
@@ -399,7 +397,7 @@ Foram introduzidos no real-time workshop do MATLAB os vectores de ganho obtidos 
 \end{figure}
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../img/u.png}
-\caption{Dados obtidos por Simulink para a variação da saída $(u(t))$ com o tempo}
+\caption{Dados obtidos por {\it simulink} para a variação da saída $(u(t))$ com o tempo}
 \label{fig:u_t}
 \end{figure}
 \begin{figure}[t]
@@ -411,7 +409,7 @@ Quanto à saída obtida observas-se que, apesar de ser muito semelhante à saíd
 Também comparando os resultados obtidos para u, é possível confirmar a perturbação da zona morta do motor visto que o valor de u, que é o sinal que actua sobre o motor,  na simulação tende para 0 suavemente, enquanto que na prática u varia impulsivamente, o que é uma tentativa do controlador de conseguir controlar o motor fora da sua zona morta. Quando o valor obtido para a ponta da barra finalmente se aproxima à com o valor na referência, o controlador continua a enviar um sinal ao motor para que este actue de modo a anular as vibrações na barra, no entanto como este não responde, o controlador continua a enviar um  sinal u diferente de 0 para actuar o motor, como se vê na figura \ref{fig:u_d}, enquanto que para um motor perfeito, como é o caso da figura \ref{fig:u_t}, o sinal u vai tender assimptóticamente para 0.
 
 \section{Resposta sem filtro na saída}
-Anulando o filtro no sinal do extensómetro através do esquema de Simulink, obtive-se o sinal $u$ e $y$ representados nas figuras \ref{fig:u_00} e \ref{fig:y_00} respectivamente.\\
+Anulando o filtro no sinal do extensómetro através do esquema de {\it simulink}, obtive-se o sinal $u$ e $y$ representados nas figuras \ref{fig:u_00} e \ref{fig:y_00} respectivamente.\\
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00/dados_00_y.png}
 \caption{Dados obtidos para $(y)$ sem o filtro no extensómetro}
@@ -422,7 +420,7 @@ Anulando o filtro no sinal do extensómetro através do esquema de Simulink, obt
 \caption{Dados obtidos para $(u)$ com o sistema real}
 \label{fig:u_00}
 \end{figure}
-Nota-se imediatamente que os sinais obtidos são agora mais parecidos com as simulações feitas no Simulink, visto que a introdução de um filtro que elimina as altas frequências num sensor é semelhante a baixar a frequência de amostragem do sensor, pois as variações rápidas que são medidas não chegam ao controlador. Assim sendo, visto que sem filtro a estimação é mais rápida que com o filtro, obtém-se um resultado mais aproximado da simulação (que é ideal).\\
+Nota-se imediatamente que os sinais obtidos são agora mais parecidos com as simulações feitas no {\it simulink}, visto que a introdução de um filtro que elimina as altas frequências num sensor é semelhante a baixar a frequência de amostragem do sensor, pois as variações rápidas que são medidas não chegam ao controlador. Assim sendo, visto que sem filtro a estimação é mais rápida que com o filtro, obtém-se um resultado mais aproximado da simulação (que é ideal).\\
 É de notar que , de modo semelhante ao que pode ser observado nos resultados da secção anterior, o sinal $u$ nunca chega a ir exactamente para 0 como é observado na simulação, visto que chega a um ponto que o sinal enviado para corrigir a posição do motor não é suficiente para que este actue, o que resulta num erro na entrada do controlador e consequentemente num sinal $u$ à saída deste diferente de 0.
 
 \section{Efeito da variação do polo do pré-filtro}
@@ -556,7 +554,7 @@ E para os pólos do observador:
 -50 & -50 & -30+40i &-30-40i
 \end{bmatrix}
 \end{equation}
-Realizou-se este ensaio para tentar perceber qual seria o efeito de aplicar pólos complexos ao observador. Através de uma simulação em Simulink, esperava-se que não existem diferenças relevantes entre este ensaio e o primeiro ensaio.\\
+Realizou-se este ensaio para tentar perceber qual seria o efeito de aplicar pólos complexos ao observador. Através de uma simulação em {\it simulink}, esperava-se que não existem diferenças relevantes entre este ensaio e o primeiro ensaio.\\
 Após realizar o ensaio, cujos gráficos estão representados nas figuras \ref{fig:y_f} e \ref{fig:u_f}, é possivel observar que os resultados obtidos são praticamente iguais aos observados no primeiro ensaio, o que significa que os valores próprios utilizados para o observador no primeiro ensaio são menores em módulo que os que foram utilizados neste ensaio e apenas vieram amplificar a resposta em alta frequência do observador e consequentemente a sua rapidez.
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00_f/dados_00_f_y.png}
@@ -582,7 +580,9 @@ Utilizou-se para os pólos do observador:
 -50+40i & -50-40i & -30+40i &-30-40i
 \end{bmatrix}
 \end{equation}
+
 Apesar de os resultados da simulação apontarem para um regime com pouca oscilação, o comportamento obtido foi um regime altamente oscilatório e impulsivo, como pode ser observado nas figuras \ref{fig:y_g} e \ref{fig:u_g}.
+
 Analisando o erro deste ensaio (a entrada do controlador), observa-se que o sistema está a tender no sentido de minimizar o erro (figura \ref{fig:erro}), apesar do seu comportamento altamente oscilatório.
 \begin{figure}[t]
 \includegraphics[width=2.5in]{../imgs/dados_00_g/dados_00_g_y.png}
@@ -610,10 +610,13 @@ Propõem-se duas soluções para melhorar o controlador implementado de modo a e
 No primeiro caso, a substituição por um motor mais sensível iria minimizar a zona morta do motor, pelo que seria possivel obter um erro menor visto que se conseguia actuar mecanicamente o motor par avalor mais baixos do sinal de actuação. No entanto isto iria implicar a aquisição um motor mais caro.\\
 No segundo caso a implementação do efeito integral implicaria que a entrada do controlador deixaria de ser o erro para passar a ser uma integração do erro o que significa que quando o erro passasse a ser tão pequeno que o controlador não conseguiria induzir um sinal forte o suficiente para actuar o motor, o erro permaneciria constante mas a entrada do controlador aumentaria (ou diminuiria) linearmente com o tempo, o que implica que ao fim de alguns instantes o sinal na entrada do controlador seria o suficiente para que a saída deste actuasse mecanicamente o motor, corrigindo novamente a posição da barra sendo que o sistema iria finalmente estabilizar quando o erro fosse tão pequeno que somente passado um grande intervalo de tempo a entrada do controlador fosse grande o suficiente para que este actuasse o motor.
 %Incluir melhorias propostas à experiência
-\begin{figure*}[T]
+
+\begin{figure*}[t]
   \includegraphics[width=.6\textheight]{../img/simulink.png}% Imports eps image
   \caption{\label{../img/simulink.png} Diagrama da simulação efectuada em {\it simulink}}
 \end{figure*}
+
+
 %\begin{acknowledgments}
 %\end{acknowledgments}
 
